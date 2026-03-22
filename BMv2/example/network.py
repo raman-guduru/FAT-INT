@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append('/home/p4/p4-utils')
 import argparse
 from p4utils.mininetlib.network_API import NetworkAPI
 from mininet.net import Mininet

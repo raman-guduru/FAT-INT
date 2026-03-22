@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append('/home/p4/p4-utils')
 from p4utils.utils.sswitch_thrift_API import *
 import math
 
