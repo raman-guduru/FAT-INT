@@ -8,7 +8,7 @@ LOG_DIR 	= 	log
 all: run
 
 run: clean
-	sudo PATH=$(PATH) PYTHONPATH=$(PYTHONPATH) python3 $(FILE_PATH)/FAT_INT/BMv2/example/uc1_network.py --p4 $(FILE_PATH)/FAT_INT/BMv2/p4src/fat_int.p4 --file_path $(FILE_PATH)
+	sudo PATH=$(PATH) PYTHONPATH=$(PYTHONPATH) python3 $(FILE_PATH)/FAT_INT/BMv2/example/uc2_network.py --p4 $(FILE_PATH)/FAT_INT/BMv2/p4src/fat_int.p4 --file_path $(FILE_PATH)
 
 stop:
 	sudo PATH=$(PATH) `which mn` -c

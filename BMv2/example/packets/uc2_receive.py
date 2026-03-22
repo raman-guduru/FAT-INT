@@ -148,7 +148,7 @@ def main():
     iface = ifaces[0]
 
     # Use the passed argument for the filename
-    file_name = f"{args.file_path}/FAT_INT/BMv2/example/packets/result_{args.receiver}.txt"
+    file_name = f"{args.file_path}/FAT_INT/BMv2/example/packets/baseline_{args.receiver}_uc2.txt"
     sys.stdout = open(file_name, 'w')
 
     receive_thread = threading.Thread(target=receive_packet, args=())

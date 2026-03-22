@@ -35,13 +35,13 @@ class Controller(object):
             self.switches[idx].table_add("tb_set_source", "int_set_source", ['0x3'])
     
     def valid_space(self):
+        # Applies insertion probability to ingress nodes (0.4 sampling ratio as per your base code)
         ingress_indices = [6, 7]
         for idx in ingress_indices:
-            # Changed from 0.4 probability to 1.0 (100%)
             self.switches[idx].table_add("tb_valid_space", 
-                                        "valid_space", 
-                                        ['1', '0->65535'], 
-                                        ['0'])
+                                         "valid_space", 
+                                         ['1', f'0->{math.ceil(65535*0.4)}'], 
+                                         ['0'])
 
     def set_switch_id(self):
         # Assign unique switch IDs (1 to 10) to all switches

@@ -25,18 +25,25 @@ def load_data(filepath, target_item):
     return node_data
 
 def calculate_nrmse(orig_times, orig_vals, samp_times, samp_vals):
-    """Calculates NRMSE using Linear Interpolation."""
     orig_times = np.array(orig_times)
     orig_vals = np.array(orig_vals)
     samp_times = np.array(samp_times)
     samp_vals = np.array(samp_vals)
 
-    # Need at least 2 points to interpolate meaningfully
     if len(samp_times) < 2 or len(orig_times) == 0:
         return float('nan')
 
+    # --- NEW NORMALIZATION BLOCK ---
+    # If the values are timestamps (very large numbers), normalize them to start at 0
+    if np.mean(orig_vals) > 1000000: # Simple check to see if we are looking at Egress TS
+        orig_vals = orig_vals - orig_vals[0]
+        samp_vals = samp_vals - samp_vals[0]
+    # -------------------------------
+
     # Reconstruct trace using linear interpolation
     reconstructed_vals = np.interp(orig_times, samp_times, samp_vals)
+    
+    # ... rest of the function remains the same ...
 
     # Root Mean Squared Error
     mse = np.mean((orig_vals - reconstructed_vals) ** 2)
