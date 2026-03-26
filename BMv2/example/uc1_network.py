@@ -92,6 +92,8 @@ def main():
     print("Waiting for inserting rules...")
     input()
     print("Insert rules complete!")
+
+    
     
     # As per the paper: Divide into sending and receiving hosts equally
     # We will use Pod 1 hosts as senders, Pod 2 hosts as receivers.
@@ -111,7 +113,7 @@ def main():
 
     # 2. Start sender scripts generating the Hadoop workload
     for sender in senders:
-        send_cmd = f'python3 {args.file_path}/FAT_INT/BMv2/example/packets/uc1_send.py --file_path {args.file_path} --sender {sender}'
+        send_cmd = f'python3 {args.file_path}/FAT_INT/BMv2/example/packets/uc1_send.py --file_path {args.file_path} --sender {sender} --load 0.4 --num_flows 80'
         host_node = net.net.get(sender)
         process = Process(target=run_command_on_host, args=(host_node, send_cmd))
         process.start()

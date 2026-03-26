@@ -4707,8 +4707,8 @@
           "key" : [
             {
               "match_type" : "exact",
-              "name" : "standard_metadata.ingress_port",
-              "target" : ["standard_metadata", "ingress_port"],
+              "name" : "hdr.ipv4.dstAddr",
+              "target" : ["ipv4", "dstAddr"],
               "mask" : null
             }
           ],

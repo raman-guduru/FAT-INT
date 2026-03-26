@@ -1214,7 +1214,7 @@ table tb_valid_space_egress {
 
 table tb_forward {
  key = {
-  standard_metadata.ingress_port: exact;
+  hdr.ipv4.dstAddr: exact;
  }
  actions = {
   set_egress_port;
