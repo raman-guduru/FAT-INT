@@ -152,7 +152,8 @@ def parsing_recv_packets(pkt):
         if IP not in pkt or TCP not in pkt:
             return
 
-        timestamp = time.time()
+        # FIX: Extract the true capture timestamp from Scapy rather than the parsing time
+        timestamp = float(pkt.time)
 
         src_ip = pkt[IP].src
         dst_ip = pkt[IP].dst
@@ -162,7 +163,6 @@ def parsing_recv_packets(pkt):
         ttl = pkt[IP].ttl
         pkt_len = len(pkt)
 
-        # Use flow identity instead of fake sequence extraction
         flow_id = f"{src_ip}:{sport}->{dst_ip}:{dport}"
 
         # ---------------------------------------------------------------------
@@ -188,7 +188,6 @@ def parsing_recv_packets(pkt):
                     h_ents, h_bytes = parse_metadata_hop(pkt, fat_hdr.hop_space, q_bytes)
                     e_ents = parse_metadata_egress(pkt, fat_hdr.egress_space, q_bytes, h_bytes)
                     
-                    # If successful, overwrite defaults with parsed data
                     int_case = fat_hdr.case
                     queue_space = fat_hdr.queue_space
                     hop_space = fat_hdr.hop_space
@@ -197,8 +196,6 @@ def parsing_recv_packets(pkt):
                     hop_entries = h_ents
                     egress_entries = e_ents
             except Exception:
-                # If parsing fails (e.g., standard packet with payload but no INT), 
-                # ignore the error and keep default empty metadata.
                 pass
 
         # ---------------------------------------------------------------------
@@ -226,7 +223,6 @@ def parsing_recv_packets(pkt):
         print(json.dumps(record))
 
     except Exception as e:
-        # Top-level exception catch to prevent sniffer crashes
         pass
 
 
@@ -303,6 +299,7 @@ def main():
         "captured_packets": len(recv_pkts)
     }))
 
+    # Now when we parse, Scapy's saved `pkt.time` will be accurate
     for pkt in recv_pkts:
         parsing_recv_packets(pkt)
 

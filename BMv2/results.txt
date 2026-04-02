@@ -1,4 +1,4 @@
-            PLINT       PINT        FAT-INT     INT
-queue       13.6        16.06       17.15       13.12
-hop         0.83        1.79        0.819       0.91
-egress      0.343       0.268       0.083       0.085
+            PLINT       PINT        FAT-INT     INT         Simulation
+queue       0.090       0.108       0.110       0.088       0.118
+hop         0.015       0.033       0.015       0.016       0.057
+egress      0.266       0.209       0.066       0.066       0.091
