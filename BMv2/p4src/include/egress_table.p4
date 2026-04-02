@@ -14,6 +14,7 @@ table tb_set_param {
 
 table tb_insert_q{
 	key = {
+		hdr.ipv4.ttl : exact;
 		meta.count_q: exact;
 		meta.sampling_space_q: exact;
 		meta.remainder_q : exact;	
@@ -37,6 +38,7 @@ table tb_insert_q{
 
 table tb_insert_hop{
 	key = {
+		hdr.ipv4.ttl : exact;
 		meta.count_hop: exact;
 		meta.sampling_space_hop: exact;
 		meta.remainder_hop : exact;
@@ -60,6 +62,7 @@ table tb_insert_hop{
 
 table tb_insert_egress{
 	key={
+		hdr.ipv4.ttl : exact;
 		meta.count_egress: exact;
 		meta.sampling_space_egress_tst: exact;
 		meta.remainder_egress : exact;	

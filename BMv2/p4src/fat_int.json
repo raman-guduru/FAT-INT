@@ -813,7 +813,7 @@
               "type" : "default",
               "value" : null,
               "mask" : null,
-              "next_state" : "parse_hop"
+              "next_state" : "parse_egress"
             }
           ],
           "transition_key" : [
@@ -4916,6 +4916,12 @@
           "key" : [
             {
               "match_type" : "exact",
+              "name" : "hdr.ipv4.ttl",
+              "target" : ["ipv4", "ttl"],
+              "mask" : null
+            },
+            {
+              "match_type" : "exact",
               "name" : "meta.count_q",
               "target" : ["scalars", "metadata.count_q"],
               "mask" : null
@@ -4973,11 +4979,17 @@
           "id" : 14,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/egress_table.p4",
-            "line" : 38,
+            "line" : 39,
             "column" : 6,
             "source_fragment" : "tb_insert_hop"
           },
           "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "hdr.ipv4.ttl",
+              "target" : ["ipv4", "ttl"],
+              "mask" : null
+            },
             {
               "match_type" : "exact",
               "name" : "meta.count_hop",
@@ -5037,11 +5049,17 @@
           "id" : 15,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/egress_table.p4",
-            "line" : 61,
+            "line" : 63,
             "column" : 6,
             "source_fragment" : "tb_insert_egress"
           },
           "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "hdr.ipv4.ttl",
+              "target" : ["ipv4", "ttl"],
+              "mask" : null
+            },
             {
               "match_type" : "exact",
               "name" : "meta.count_egress",

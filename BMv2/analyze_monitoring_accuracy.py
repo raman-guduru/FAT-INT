@@ -261,6 +261,26 @@ def analyze_metric(full_records, fat_records, metric_type, normalize="mean"):
     full_series = extract_metric_series(full_records, metric_type)
     fat_series  = extract_metric_series(fat_records, metric_type)
 
+    # --- ENHANCED DEBUG BLOCK ---
+    full_keys_set = set(full_series.keys())
+    fat_keys_set = set(fat_series.keys())
+    
+    common_keys = full_keys_set & fat_keys_set
+    only_in_full = full_keys_set - fat_keys_set
+    only_in_fat = fat_keys_set - full_keys_set
+
+    print(f"\n[DEBUG] {metric_type.upper()} MATCHING ANALYSIS")
+    print(f" -> Total Matched Keys : {len(common_keys)}")
+    
+    print(f" -> Keys ONLY in Full  : {len(only_in_full)}")
+    if only_in_full:
+        print(f"    Example orphans in Full: {list(only_in_full)[:3]}")
+        
+    print(f" -> Keys ONLY in FAT   : {len(only_in_fat)}")
+    if only_in_fat:
+        print(f"    Example orphans in FAT : {list(only_in_fat)[:3]}")
+    # ----------------------------
+
     matched_result = compare_matched(full_series, fat_series, normalize=normalize)
     filled_result  = forward_fill_compare(full_series, fat_series, normalize=normalize)
 

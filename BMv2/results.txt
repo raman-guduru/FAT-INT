@@ -1,0 +1,4 @@
+            PLINT       PINT        FAT-INT     INT
+queue       13.6        16.06       17.15       13.12
+hop         0.83        1.79        0.819       0.91
+egress      0.343       0.268       0.083       0.085

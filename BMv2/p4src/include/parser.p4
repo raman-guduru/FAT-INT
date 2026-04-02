@@ -62,7 +62,7 @@ parser MyParser(packet_in packet,
         meta.remain_egress = meta.remain_egress-1;
         transition select(meta.remain_egress){
             0 : accept;
-            default : parse_hop;
+            default : parse_egress;
         }
     }   
 }

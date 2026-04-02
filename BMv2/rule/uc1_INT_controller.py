@@ -110,8 +110,23 @@ class Controller(object):
 
     def routing_table(self):
         """
-        Deterministic destination-IP forwarding
-        using your ACTUAL port mapping.
+        FULLY CORRECT deterministic forwarding for your actual port mapping.
+
+        ---------------------------------------------------------
+        Actual ports from your Mininet output
+        ---------------------------------------------------------
+        a1: 1:e1  2:e2  3:c1  4:c2
+        a2: 1:e1  2:e2  3:c1  4:c2
+        a3: 1:e3  2:e4  3:c1  4:c2
+        a4: 1:e3  2:e4  3:c1  4:c2
+
+        c1: 1:a1  2:a2  3:a3  4:a4
+        c2: 1:a1  2:a2  3:a3  4:a4
+
+        e1: 1:a1  2:a2  3:h1  4:h2
+        e2: 1:a1  2:a2  3:h3  4:h4
+        e3: 1:a3  2:a4  3:h5  4:h6
+        e4: 1:a3  2:a4  3:h7  4:h8
         """
 
         a1 = self.sw["a1"]
@@ -128,7 +143,7 @@ class Controller(object):
         def add_route(sw, dst_ip, port):
             sw.table_add("tb_forward", "set_egress_port", [dst_ip], [str(port)])
 
-        # Host IPs
+        # Hosts
         h1 = "10.0.7.1"
         h2 = "10.0.7.2"
         h3 = "10.0.8.3"
@@ -140,64 +155,55 @@ class Controller(object):
 
         # =========================================================
         # EDGE SWITCHES
-        # Actual ports from your topology:
-        #
-        # e1: 1->a1  2->a2  3->h1  4->h2
-        # e2: 1->a1  2->a2  3->h3  4->h4
-        # e3: 1->a3  2->a4  3->h5  4->h6
-        # e4: 1->a3  2->a4  3->h7  4->h8
         # =========================================================
+        # Use BOTH uplinks consistently for reachability.
+        # e1/e2 are pod-left ; e3/e4 are pod-right
 
-        # e1
+        # e1: local h1,h2 ; remote pod via a1
         add_route(e1, h1, 3)
         add_route(e1, h2, 4)
-        add_route(e1, h3, 1)
-        add_route(e1, h4, 1)
-        add_route(e1, h5, 1)
+        add_route(e1, h3, 2)   # same pod -> e2 via a2
+        add_route(e1, h4, 2)
+        add_route(e1, h5, 1)   # remote pod -> a1
         add_route(e1, h6, 1)
         add_route(e1, h7, 1)
         add_route(e1, h8, 1)
 
-        # e2
-        add_route(e2, h1, 1)
+        # e2: local h3,h4 ; remote pod via a1
+        add_route(e2, h1, 1)   # same pod -> e1 via a1
         add_route(e2, h2, 1)
         add_route(e2, h3, 3)
         add_route(e2, h4, 4)
-        add_route(e2, h5, 1)
-        add_route(e2, h6, 1)
-        add_route(e2, h7, 1)
-        add_route(e2, h8, 1)
+        add_route(e2, h5, 2)   # remote pod -> a2
+        add_route(e2, h6, 2)
+        add_route(e2, h7, 2)
+        add_route(e2, h8, 2)
 
-        # e3
+        # e3: local h5,h6 ; remote pod via a3
         add_route(e3, h1, 1)
         add_route(e3, h2, 1)
-        add_route(e3, h3, 1)
-        add_route(e3, h4, 1)
+        add_route(e3, h3, 2)
+        add_route(e3, h4, 2)
         add_route(e3, h5, 3)
         add_route(e3, h6, 4)
-        add_route(e3, h7, 1)
-        add_route(e3, h8, 1)
+        add_route(e3, h7, 2)   # same pod -> e4 via a4
+        add_route(e3, h8, 2)
 
-        # e4
-        add_route(e4, h1, 1)
-        add_route(e4, h2, 1)
+        # e4: local h7,h8 ; remote pod via a4
+        add_route(e4, h1, 2)
+        add_route(e4, h2, 2)
         add_route(e4, h3, 1)
         add_route(e4, h4, 1)
-        add_route(e4, h5, 1)
+        add_route(e4, h5, 1)   # same pod -> e3 via a3
         add_route(e4, h6, 1)
         add_route(e4, h7, 3)
         add_route(e4, h8, 4)
 
         # =========================================================
         # AGGREGATION SWITCHES
-        #
-        # a1: 1->e1  2->e2  3->c1  4->c2
-        # a2: 1->e1  2->e2  3->c1  4->c2
-        # a3: 1->e3  2->e4  3->c1  4->c2
-        # a4: 1->e3  2->e4  3->c1  4->c2
         # =========================================================
 
-        # a1
+        # a1 serves e1/e2 ; remote pod via c1
         add_route(a1, h1, 1)
         add_route(a1, h2, 1)
         add_route(a1, h3, 2)
@@ -207,17 +213,17 @@ class Controller(object):
         add_route(a1, h7, 3)
         add_route(a1, h8, 3)
 
-        # a2
+        # a2 serves e1/e2 ; remote pod via c2
         add_route(a2, h1, 1)
         add_route(a2, h2, 1)
         add_route(a2, h3, 2)
         add_route(a2, h4, 2)
-        add_route(a2, h5, 3)
-        add_route(a2, h6, 3)
-        add_route(a2, h7, 3)
-        add_route(a2, h8, 3)
+        add_route(a2, h5, 4)
+        add_route(a2, h6, 4)
+        add_route(a2, h7, 4)
+        add_route(a2, h8, 4)
 
-        # a3
+        # a3 serves e3/e4 ; remote pod via c1
         add_route(a3, h1, 3)
         add_route(a3, h2, 3)
         add_route(a3, h3, 3)
@@ -227,11 +233,11 @@ class Controller(object):
         add_route(a3, h7, 2)
         add_route(a3, h8, 2)
 
-        # a4
-        add_route(a4, h1, 3)
-        add_route(a4, h2, 3)
-        add_route(a4, h3, 3)
-        add_route(a4, h4, 3)
+        # a4 serves e3/e4 ; remote pod via c2
+        add_route(a4, h1, 4)
+        add_route(a4, h2, 4)
+        add_route(a4, h3, 4)
+        add_route(a4, h4, 4)
         add_route(a4, h5, 1)
         add_route(a4, h6, 1)
         add_route(a4, h7, 2)
@@ -239,11 +245,8 @@ class Controller(object):
 
         # =========================================================
         # CORE SWITCHES
-        #
-        # c1: 1->a1  2->a2  3->a3  4->a4
-        # c2: 1->a1  2->a2  3->a3  4->a4
         # =========================================================
-
+        # c1 prefers a1/a3
         add_route(c1, h1, 1)
         add_route(c1, h2, 1)
         add_route(c1, h3, 2)
@@ -253,6 +256,7 @@ class Controller(object):
         add_route(c1, h7, 4)
         add_route(c1, h8, 4)
 
+        # c2 prefers a1/a3 or a2/a4 according to wiring
         add_route(c2, h1, 1)
         add_route(c2, h2, 1)
         add_route(c2, h3, 2)
@@ -317,19 +321,19 @@ class Controller(object):
                 sw.table_add(
                     "tb_insert_q",
                     "set_q",
-                    [str(1), str(q_space_1), str(count), "0->65535"]
+                    [str(ttl),str(1), str(q_space_1), str(count), "0->65535"]
                 )
 
                 sw.table_add(
                     "tb_insert_hop",
                     "set_hop",
-                    [str(1), str(hop_space_1), str(count), "0->65535"]
+                    [str(ttl),str(1), str(hop_space_1), str(count), "0->65535"]
                 )
 
                 sw.table_add(
                     "tb_insert_egress",
                     "set_egress",
-                    [str(1), str(egress_space_1), str(count), "0->65535"]
+                    [str(ttl),str(1), str(egress_space_1), str(count), "0->65535"]
                 )
 
                 ttl -= 1

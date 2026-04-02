@@ -148,16 +148,8 @@ def parse_metadata_egress(pkt, egress_space, queue_bytes, hop_bytes):
 
 def parsing_recv_packets(pkt):
     try:
+        # We still strictly need IP and TCP layers to log basic flow info
         if IP not in pkt or TCP not in pkt:
-            return
-
-        if not pkt[TCP].payload:
-            return
-
-        # Only parse packets carrying INT/FAT-INT metadata
-        # Your sender uses tos=0x3, and after INT insertion your receiver logic
-        # previously checked != 0x3. We preserve that behavior.
-        if pkt[IP].tos == 0x3:
             return
 
         timestamp = time.time()
@@ -173,15 +165,45 @@ def parsing_recv_packets(pkt):
         # Use flow identity instead of fake sequence extraction
         flow_id = f"{src_ip}:{sport}->{dst_ip}:{dport}"
 
-        fat_hdr = parse_fatint_header(pkt)
+        # ---------------------------------------------------------------------
+        # Set Default values for Non-INT packets
+        # ---------------------------------------------------------------------
+        int_case = None
+        queue_space = 0
+        hop_space = 0
+        egress_space = 0
+        queue_entries = []
+        hop_entries = []
+        egress_entries = []
 
-        if fat_hdr.case not in [0, 1]:
-            return
+        # ---------------------------------------------------------------------
+        # Attempt to parse INT Metadata (Only if payload exists and TOS != 0x3)
+        # ---------------------------------------------------------------------
+        if pkt[TCP].payload and pkt[IP].tos != 0x3:
+            try:
+                fat_hdr = parse_fatint_header(pkt)
 
-        queue_entries, queue_bytes = parse_metadata_q(pkt, fat_hdr.queue_space)
-        hop_entries, hop_bytes = parse_metadata_hop(pkt, fat_hdr.hop_space, queue_bytes)
-        egress_entries = parse_metadata_egress(pkt, fat_hdr.egress_space, queue_bytes, hop_bytes)
+                if fat_hdr.case in [0, 1]:
+                    q_ents, q_bytes = parse_metadata_q(pkt, fat_hdr.queue_space)
+                    h_ents, h_bytes = parse_metadata_hop(pkt, fat_hdr.hop_space, q_bytes)
+                    e_ents = parse_metadata_egress(pkt, fat_hdr.egress_space, q_bytes, h_bytes)
+                    
+                    # If successful, overwrite defaults with parsed data
+                    int_case = fat_hdr.case
+                    queue_space = fat_hdr.queue_space
+                    hop_space = fat_hdr.hop_space
+                    egress_space = fat_hdr.egress_space
+                    queue_entries = q_ents
+                    hop_entries = h_ents
+                    egress_entries = e_ents
+            except Exception:
+                # If parsing fails (e.g., standard packet with payload but no INT), 
+                # ignore the error and keep default empty metadata.
+                pass
 
+        # ---------------------------------------------------------------------
+        # Log the Packet
+        # ---------------------------------------------------------------------
         record = {
             'timestamp': timestamp,
             'flow_id': flow_id,
@@ -192,10 +214,10 @@ def parsing_recv_packets(pkt):
             'ip_id': ip_id,
             'ttl': ttl,
             'pkt_len': pkt_len,
-            'int_case': fat_hdr.case,
-            'queue_space': fat_hdr.queue_space,
-            'hop_space': fat_hdr.hop_space,
-            'egress_space': fat_hdr.egress_space,
+            'int_case': int_case,
+            'queue_space': queue_space,
+            'hop_space': hop_space,
+            'egress_space': egress_space,
             'queue_metadata': queue_entries,
             'hop_metadata': hop_entries,
             'egress_metadata': egress_entries
@@ -204,8 +226,7 @@ def parsing_recv_packets(pkt):
         print(json.dumps(record))
 
     except Exception as e:
-        # Uncomment for debugging if needed:
-        # print(f"Parse error: {e}")
+        # Top-level exception catch to prevent sniffer crashes
         pass
 
 
@@ -232,7 +253,7 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--file_path', help='Absolute project path', type=str, required=True)
     parser.add_argument('--receiver', help='Name of the receiving host', type=str, required=True)
-    parser.add_argument('--duration', help='Sniff duration in seconds', type=int, default=60)
+    parser.add_argument('--duration', help='Sniff duration in seconds', type=int, default=240)
     return parser.parse_args()
 
 
@@ -257,7 +278,7 @@ def main():
     log_dir = os.path.join(args.file_path, "FAT_INT", "BMv2", "example", "packets")
     os.makedirs(log_dir, exist_ok=True)
 
-    file_name = os.path.join(log_dir, f"result_fatINT_{args.receiver}.txt")
+    file_name = os.path.join(log_dir, f"result_temp_{args.receiver}.txt")
     sys.stdout = open(file_name, 'w', buffering=1)
 
     print(json.dumps({

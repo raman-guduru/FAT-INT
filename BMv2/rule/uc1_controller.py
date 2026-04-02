@@ -11,9 +11,9 @@ from p4utils.utils.sswitch_thrift_API import SimpleSwitchThriftAPI
 # Hop samples    = 3
 # Egress samples = 1
 # ============================================================
-q_space_1 = 5
-hop_space_1 = 3
-egress_space_1 = 1
+q_space_1 = 2
+hop_space_1 = 2
+egress_space_1 = 2
 
 
 class Controller(object):
@@ -84,7 +84,7 @@ class Controller(object):
             valid_space(0)
         """
         ingress_switches = ["e1", "e2"]
-        threshold = math.ceil(65535 * 0.4)
+        threshold = math.ceil(65535 * 1)
 
         for sw_name in ingress_switches:
             self.sw[sw_name].table_add(
@@ -330,19 +330,6 @@ class Controller(object):
                 count += 1
 
     def insert_int(self):
-        """
-        FAT-INT insertion rules:
-        1. If slot is empty / directly chosen -> set_q / set_hop / set_egress
-        2. Otherwise use probabilistic replacement according to MRS logic
-
-        NOTE:
-        These action names MUST exist in your P4:
-            set_q, set_hop, set_egress
-            index_q0..index_q4
-            index_hop0..index_hop2
-            index_egress0
-        """
-
         for sw in self.sw.values():
             ttl = 63
             count = 0
@@ -352,38 +339,26 @@ class Controller(object):
                 hop_idx = count % hop_space_1
                 eg_idx = count % egress_space_1
 
-                # ------------------------------------------------------------
-                # 1) Direct insert rules (initial fill / deterministic placement)
-                # ------------------------------------------------------------
+                # 1) Direct insert rules (Initial fill)
                 sw.table_add(
                     "tb_insert_q",
                     "set_q",
-                    ['1', str(q_space_1), str(q_idx), "0->65535"]
+                    [str(ttl), '1', str(q_space_1), str(q_idx), "0->65535"]
                 )
 
                 sw.table_add(
                     "tb_insert_hop",
                     "set_hop",
-                    ['1', str(hop_space_1), str(hop_idx), "0->65535"]
+                    [str(ttl), '1', str(hop_space_1), str(hop_idx), "0->65535"]
                 )
 
                 sw.table_add(
                     "tb_insert_egress",
                     "set_egress",
-                    ['1', str(egress_space_1), str(eg_idx), "0->65535"]
+                    [str(ttl), '1', str(egress_space_1), str(eg_idx), "0->65535"]
                 )
 
-                # ------------------------------------------------------------
-                # 2) FAT-INT Multi-slot Reservoir Sampling replacement rules
-                # ------------------------------------------------------------
-                # Probability = 1 / ceil((count+1)/space)
-                #
-                # count: 0 1 2 3 4
-                # q_space=5       -> all first five have full chance
-                # hop_space=3     -> later hops begin replacement
-                # egress_space=1  -> classic reservoir behavior
-                # ------------------------------------------------------------
-
+                # 2) FAT-INT Reservoir Replacement rules (Decreasing Probabilities)
                 q_prob = int((1 / math.ceil((count + 1) / q_space_1)) * 65535)
                 hop_prob = int((1 / math.ceil((count + 1) / hop_space_1)) * 65535)
                 eg_prob = int((1 / math.ceil((count + 1) / egress_space_1)) * 65535)
@@ -391,19 +366,19 @@ class Controller(object):
                 sw.table_add(
                     "tb_insert_q",
                     f"index_q{q_idx}",
-                    ['0', str(q_space_1), str(q_idx), f"0->{q_prob}"]
+                    [str(ttl), '0', str(q_space_1), str(q_idx), f"0->{q_prob}"]
                 )
 
                 sw.table_add(
                     "tb_insert_hop",
                     f"index_hop{hop_idx}",
-                    ['0', str(hop_space_1), str(hop_idx), f"0->{hop_prob}"]
+                    [str(ttl), '0', str(hop_space_1), str(hop_idx), f"0->{hop_prob}"]
                 )
 
                 sw.table_add(
                     "tb_insert_egress",
                     f"index_egress{eg_idx}",
-                    ['0', str(egress_space_1), str(eg_idx), f"0->{eg_prob}"]
+                    [str(ttl), '0', str(egress_space_1), str(eg_idx), f"0->{eg_prob}"]
                 )
 
                 ttl -= 1
