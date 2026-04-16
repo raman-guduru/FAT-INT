@@ -132,4 +132,4 @@ def main(filepath):
         print(f"{str(eps)+'%':<10} | {sampling_ratio * 100:<12.2f} | {spaces['queue_occ']:<12} | {spaces['hop_lat']:<12} | {spaces['egress_ts']:<12}")
 
 if __name__ == "__main__":
-    main("BMv2/example/packets/result_temp_h5.txt")
+    main("BMv2/example/packets/result_fullINT_h5.txt")

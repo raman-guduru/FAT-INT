@@ -113,7 +113,7 @@ def scale_profile_for_load(packets_in_flow, inter_pkt_gap, inter_flow_gap, load_
     if load_factor <= 0:
         load_factor = 0.4
 
-    scaled_inter_pkt_gap = inter_pkt_gap / load_factor
+    scaled_inter_pkt_gap = inter_pkt_gap * (1-load_factor)
     scaled_inter_flow_gap = inter_flow_gap / load_factor
     scaled_packets = max(3, int(packets_in_flow * (0.7 + 0.3 * load_factor)))
 

@@ -9,11 +9,11 @@ from collections import defaultdict
 # =====================================================================
 # FAT-INT SIMULATION PARAMETERS (Based strictly on 3.0% Error Profile)
 # =====================================================================
-INGRESS_SAMPLING_RATIO = 0.2003  # 20.03%
+INGRESS_SAMPLING_RATIO = 1
 SPACES = {
-    "queue": 20,
-    "hop": 7,
-    "egress": 1
+    "queue": 4,
+    "hop": 4,
+    "egress": 2
 }
 
 def load_full_records(folder, prefix, receivers):
