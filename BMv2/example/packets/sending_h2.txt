@@ -1,367 +1,210 @@
 ================================================================================
-Starting Hadoop-like Traffic Generator on h2
-Interface           : h2-eth0
-Source IP           : 10.0.7.2
-Logical flows       : 80
-Load factor         : 40.0%
-Receiver pool       : ['10.0.9.5', '10.0.9.6', '10.0.10.7', '10.0.10.8']
+Starting Empirical Hadoop Traffic Generator on h2
+Interface        : h2-eth0
+Target Load      : 40.0%
+Total Flows      : 100
 ================================================================================
-
-[FLOW 1/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.5 pkts=13 payload=325B sport=54348 dport=55741
-  Completed flow 1: 13 pkts, 4927 bytes, 0.252s
-
-[FLOW 2/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.9.6 pkts=26 payload=838B sport=15229 dport=35256
-  Completed flow 2: 26 pkts, 23192 bytes, 0.409s
-
-[FLOW 3/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.5 pkts=15 payload=357B sport=47182 dport=25161
-  Completed flow 3: 15 pkts, 6165 bytes, 0.263s
-
-[FLOW 4/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.8 pkts=18 payload=408B sport=38249 dport=43219
-  Completed flow 4: 18 pkts, 8316 bytes, 0.271s
-
-[FLOW 5/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.5 pkts=18 payload=457B sport=13727 dport=53281
-  Completed flow 5: 18 pkts, 9198 bytes, 0.297s
-
-[FLOW 6/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.9.5 pkts=38 payload=522B sport=51753 dport=37167
-  -> Total packets sent so far: 100
-  Completed flow 6: 38 pkts, 21888 bytes, 0.567s
-
-[FLOW 7/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.8 pkts=12 payload=275B sport=59215 dport=26985
-  Completed flow 7: 12 pkts, 3948 bytes, 0.175s
-
-[FLOW 8/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.5 pkts=17 payload=399B sport=55581 dport=21280
-  Completed flow 8: 17 pkts, 7701 bytes, 0.350s
-
-[FLOW 9/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.6 pkts=6 payload=518B sport=53873 dport=27496
-  Completed flow 9: 6 pkts, 3432 bytes, 0.110s
-
-[FLOW 10/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.7 pkts=15 payload=235B sport=37528 dport=52125
-  Completed flow 10: 15 pkts, 4335 bytes, 0.237s
-
-[FLOW 11/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.8 pkts=15 payload=417B sport=33056 dport=49736
-  Completed flow 11: 15 pkts, 7065 bytes, 0.256s
-
-[FLOW 12/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.9.6 pkts=40 payload=543B sport=37274 dport=59735
-  -> Total packets sent so far: 200
-  Completed flow 12: 40 pkts, 23880 bytes, 0.686s
-
-[FLOW 13/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.5 pkts=9 payload=436B sport=20090 dport=52661
-  Completed flow 13: 9 pkts, 4410 bytes, 0.179s
-
-[FLOW 14/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.7 pkts=20 payload=393B sport=22363 dport=35650
-  Completed flow 14: 20 pkts, 8940 bytes, 0.365s
-
-[FLOW 15/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.10.8 pkts=48 payload=630B sport=40490 dport=38850
-  -> Total packets sent so far: 300
-  Completed flow 15: 48 pkts, 32832 bytes, 0.751s
-
-[FLOW 16/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.5 pkts=12 payload=514B sport=53181 dport=54173
-  Completed flow 16: 12 pkts, 6816 bytes, 0.200s
-
-[FLOW 17/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.7 pkts=13 payload=391B sport=41081 dport=24399
-  Completed flow 17: 13 pkts, 5785 bytes, 0.218s
-
-[FLOW 18/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.8 pkts=15 payload=359B sport=47197 dport=59074
-  Completed flow 18: 15 pkts, 6195 bytes, 0.223s
-
-[FLOW 19/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.8 pkts=8 payload=360B sport=56497 dport=61952
-  Completed flow 19: 8 pkts, 3312 bytes, 0.202s
-
-[FLOW 20/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.7 pkts=9 payload=320B sport=21370 dport=59478
-  Completed flow 20: 9 pkts, 3366 bytes, 0.156s
-
-[FLOW 21/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.9.5 pkts=50 payload=696B sport=58425 dport=22688
-  -> Total packets sent so far: 400
-  Completed flow 21: 50 pkts, 37500 bytes, 0.733s
-
-[FLOW 22/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.9.5 pkts=50 payload=805B sport=47686 dport=35855
-  Completed flow 22: 50 pkts, 42950 bytes, 0.811s
-
-[FLOW 23/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.5 pkts=18 payload=469B sport=47676 dport=24833
-  Completed flow 23: 18 pkts, 9414 bytes, 0.375s
-
-[FLOW 24/80] class=LARGE src=10.0.7.2 -> dst=10.0.10.7 pkts=109 payload=1289B sport=30913 dport=35842
-  -> Total packets sent so far: 500
-  Completed flow 24: 109 pkts, 146387 bytes, 1.631s
-
-[FLOW 25/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.7 pkts=14 payload=321B sport=53267 dport=54160
-  -> Total packets sent so far: 600
-  Completed flow 25: 14 pkts, 5250 bytes, 0.267s
-
-[FLOW 26/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.7 pkts=7 payload=237B sport=57468 dport=64004
-  Completed flow 26: 7 pkts, 2037 bytes, 0.130s
-
-[FLOW 27/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.8 pkts=15 payload=357B sport=42589 dport=50540
-  Completed flow 27: 15 pkts, 6165 bytes, 0.228s
-
-[FLOW 28/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.5 pkts=18 payload=391B sport=50404 dport=51667
-  Completed flow 28: 18 pkts, 8010 bytes, 0.289s
-
-[FLOW 29/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.9.5 pkts=38 payload=960B sport=21754 dport=40610
-  Completed flow 29: 38 pkts, 38532 bytes, 0.650s
-
-[FLOW 30/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.7 pkts=18 payload=494B sport=28369 dport=45751
-  -> Total packets sent so far: 700
-  Completed flow 30: 18 pkts, 9864 bytes, 0.353s
-
-[FLOW 31/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.7 pkts=18 payload=305B sport=16397 dport=48715
-  Completed flow 31: 18 pkts, 6462 bytes, 0.366s
-
-[FLOW 32/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.6 pkts=17 payload=505B sport=22173 dport=51894
-  Completed flow 32: 17 pkts, 9503 bytes, 0.291s
-
-[FLOW 33/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.9.6 pkts=54 payload=852B sport=51469 dport=48060
-  Completed flow 33: 54 pkts, 48924 bytes, 0.787s
-
-[FLOW 34/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.8 pkts=20 payload=475B sport=30310 dport=25178
-  -> Total packets sent so far: 800
-  Completed flow 34: 20 pkts, 10580 bytes, 0.399s
-
-[FLOW 35/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.5 pkts=7 payload=291B sport=13009 dport=46275
-  Completed flow 35: 7 pkts, 2415 bytes, 0.167s
-
-[FLOW 36/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.6 pkts=17 payload=212B sport=55446 dport=20628
-  Completed flow 36: 17 pkts, 4522 bytes, 0.343s
-
-[FLOW 37/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.8 pkts=13 payload=261B sport=29937 dport=59538
-  Completed flow 37: 13 pkts, 4095 bytes, 0.210s
-
-[FLOW 38/80] class=LARGE src=10.0.7.2 -> dst=10.0.9.5 pkts=91 payload=986B sport=57476 dport=45886
-  -> Total packets sent so far: 900
-  Completed flow 38: 91 pkts, 94640 bytes, 1.369s
-
-[FLOW 39/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.8 pkts=9 payload=254B sport=28749 dport=55103
-  Completed flow 39: 9 pkts, 2772 bytes, 0.166s
-
-[FLOW 40/80] class=LARGE src=10.0.7.2 -> dst=10.0.10.7 pkts=174 payload=1296B sport=37313 dport=59647
-  -> Total packets sent so far: 1000
-  -> Total packets sent so far: 1100
-  Completed flow 40: 174 pkts, 234900 bytes, 2.787s
-
-[FLOW 41/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.9.5 pkts=47 payload=623B sport=50706 dport=35979
-  Completed flow 41: 47 pkts, 31819 bytes, 0.802s
-
-[FLOW 42/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.5 pkts=20 payload=476B sport=33974 dport=45722
-  Completed flow 42: 20 pkts, 10600 bytes, 0.311s
-
-[FLOW 43/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.6 pkts=9 payload=538B sport=57202 dport=27427
-  -> Total packets sent so far: 1200
-  Completed flow 43: 9 pkts, 5328 bytes, 0.170s
-
-[FLOW 44/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.6 pkts=17 payload=507B sport=21919 dport=60842
-  Completed flow 44: 17 pkts, 9537 bytes, 0.310s
-
-[FLOW 45/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.8 pkts=9 payload=418B sport=45134 dport=47758
-  Completed flow 45: 9 pkts, 4248 bytes, 0.223s
-
-[FLOW 46/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.9.5 pkts=31 payload=741B sport=14199 dport=37241
-  Completed flow 46: 31 pkts, 24645 bytes, 0.520s
-
-[FLOW 47/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.9.5 pkts=59 payload=752B sport=45486 dport=22769
-  -> Total packets sent so far: 1300
-  Completed flow 47: 59 pkts, 47554 bytes, 0.959s
-
-[FLOW 48/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.7 pkts=20 payload=204B sport=59510 dport=51265
-  Completed flow 48: 20 pkts, 5160 bytes, 0.328s
-
-[FLOW 49/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.10.8 pkts=30 payload=998B sport=39029 dport=36198
-  Completed flow 49: 30 pkts, 31560 bytes, 0.545s
-
-[FLOW 50/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.5 pkts=8 payload=222B sport=12049 dport=33243
-  Completed flow 50: 8 pkts, 2208 bytes, 0.148s
-
-[FLOW 51/80] class=LARGE src=10.0.7.2 -> dst=10.0.9.6 pkts=101 payload=951B sport=22416 dport=32656
-  -> Total packets sent so far: 1400
-  Completed flow 51: 101 pkts, 101505 bytes, 1.590s
-
-[FLOW 52/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.8 pkts=13 payload=596B sport=37686 dport=39295
-  Completed flow 52: 13 pkts, 8450 bytes, 0.223s
-
-[FLOW 53/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.6 pkts=9 payload=303B sport=10800 dport=50057
-  Completed flow 53: 9 pkts, 3213 bytes, 0.175s
-
-[FLOW 54/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.5 pkts=10 payload=282B sport=55319 dport=58991
-  -> Total packets sent so far: 1500
-  Completed flow 54: 10 pkts, 3360 bytes, 0.177s
-
-[FLOW 55/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.7 pkts=15 payload=266B sport=57787 dport=61409
-  Completed flow 55: 15 pkts, 4800 bytes, 0.287s
-
-[FLOW 56/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.10.8 pkts=45 payload=975B sport=29617 dport=57024
-  Completed flow 56: 45 pkts, 46305 bytes, 0.753s
-
-[FLOW 57/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.10.8 pkts=39 payload=893B sport=43288 dport=26745
-  -> Total packets sent so far: 1600
-  Completed flow 57: 39 pkts, 36933 bytes, 0.651s
-
-[FLOW 58/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.9.6 pkts=38 payload=710B sport=12192 dport=22481
-  Completed flow 58: 38 pkts, 29032 bytes, 0.679s
-
-[FLOW 59/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.10.7 pkts=37 payload=835B sport=54255 dport=35846
-  Completed flow 59: 37 pkts, 32893 bytes, 0.625s
-
-[FLOW 60/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.8 pkts=20 payload=529B sport=39445 dport=21075
-  -> Total packets sent so far: 1700
-  Completed flow 60: 20 pkts, 11660 bytes, 0.345s
-
-[FLOW 61/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.5 pkts=8 payload=561B sport=37277 dport=51195
-  Completed flow 61: 8 pkts, 4920 bytes, 0.183s
-
-[FLOW 62/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.6 pkts=11 payload=341B sport=19779 dport=64908
-  Completed flow 62: 11 pkts, 4345 bytes, 0.178s
-
-[FLOW 63/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.10.8 pkts=44 payload=956B sport=41746 dport=23561
-  Completed flow 63: 44 pkts, 44440 bytes, 0.764s
-
-[FLOW 64/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.9.6 pkts=51 payload=987B sport=54721 dport=55483
-  -> Total packets sent so far: 1800
-  Completed flow 64: 51 pkts, 53091 bytes, 0.897s
-
-[FLOW 65/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.7 pkts=18 payload=263B sport=37338 dport=31755
-  Completed flow 65: 18 pkts, 5706 bytes, 0.340s
-
-[FLOW 66/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.5 pkts=9 payload=208B sport=33761 dport=29110
-  Completed flow 66: 9 pkts, 2358 bytes, 0.225s
-
-[FLOW 67/80] class=LARGE src=10.0.7.2 -> dst=10.0.9.5 pkts=91 payload=933B sport=16324 dport=28112
-  -> Total packets sent so far: 1900
-  Completed flow 67: 91 pkts, 89817 bytes, 1.314s
-
-[FLOW 68/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.10.7 pkts=38 payload=837B sport=12767 dport=51840
-  Completed flow 68: 38 pkts, 33858 bytes, 0.648s
-
-[FLOW 69/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.7 pkts=17 payload=388B sport=47381 dport=34711
-  Completed flow 69: 17 pkts, 7514 bytes, 0.358s
-
-[FLOW 70/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.8 pkts=14 payload=554B sport=35132 dport=47740
-  -> Total packets sent so far: 2000
-  Completed flow 70: 14 pkts, 8512 bytes, 0.261s
-
-[FLOW 71/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.6 pkts=18 payload=227B sport=22002 dport=22350
-  Completed flow 71: 18 pkts, 5058 bytes, 0.331s
-
-[FLOW 72/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.8 pkts=9 payload=308B sport=28543 dport=41179
-  Completed flow 72: 9 pkts, 3258 bytes, 0.188s
-
-[FLOW 73/80] class=MEDIUM src=10.0.7.2 -> dst=10.0.10.8 pkts=49 payload=637B sport=59577 dport=47691
-  Completed flow 73: 49 pkts, 33859 bytes, 0.950s
-
-[FLOW 74/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.6 pkts=10 payload=510B sport=42356 dport=39900
-  Completed flow 74: 10 pkts, 5640 bytes, 0.219s
-
-[FLOW 75/80] class=LARGE src=10.0.7.2 -> dst=10.0.9.5 pkts=245 payload=1212B sport=16676 dport=56862
-  -> Total packets sent so far: 2100
-  -> Total packets sent so far: 2200
-  -> Total packets sent so far: 2300
-  Completed flow 75: 245 pkts, 310170 bytes, 3.927s
-
-[FLOW 76/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.7 pkts=9 payload=545B sport=55155 dport=59542
-  Completed flow 76: 9 pkts, 5391 bytes, 0.189s
-
-[FLOW 77/80] class=LARGE src=10.0.7.2 -> dst=10.0.10.8 pkts=124 payload=966B sport=56509 dport=63567
-  -> Total packets sent so far: 2400
-  Completed flow 77: 124 pkts, 126480 bytes, 2.240s
-
-[FLOW 78/80] class=SMALL src=10.0.7.2 -> dst=10.0.10.7 pkts=6 payload=499B sport=59842 dport=26606
-  Completed flow 78: 6 pkts, 3318 bytes, 0.078s
-
-[FLOW 79/80] class=LARGE src=10.0.7.2 -> dst=10.0.10.7 pkts=132 payload=1381B sport=50029 dport=23751
-  -> Total packets sent so far: 2500
-  -> Total packets sent so far: 2600
-  Completed flow 79: 132 pkts, 189420 bytes, 2.272s
-
-[FLOW 80/80] class=SMALL src=10.0.7.2 -> dst=10.0.9.5 pkts=10 payload=405B sport=42246 dport=32946
-  Completed flow 80: 10 pkts, 4590 bytes, 0.222s
+[FLOW 1 STARTED] time=1776345127.798990 src=10.0.7.2 -> dst=10.0.9.5 size=255B
+[FLOW 2 STARTED] time=1776345127.806726 src=10.0.7.2 -> dst=10.0.9.5 size=312B
+[FLOW 1 ENDED] 1 pkts sent in 0.013s
+[FLOW 2 ENDED] 1 pkts sent in 0.009s
+[FLOW 3 STARTED] time=1776345127.816176 src=10.0.7.2 -> dst=10.0.10.8 size=908B
+[FLOW 3 ENDED] 1 pkts sent in 0.008s
+[FLOW 4 STARTED] time=1776345127.841545 src=10.0.7.2 -> dst=10.0.9.6 size=442B
+[FLOW 4 ENDED] 1 pkts sent in 0.012s
+[FLOW 5 STARTED] time=1776345127.862040 src=10.0.7.2 -> dst=10.0.10.7 size=991B
+[FLOW 5 ENDED] 1 pkts sent in 0.005s
+[FLOW 6 STARTED] time=1776345127.888338 src=10.0.7.2 -> dst=10.0.10.7 size=68597B
+[FLOW 7 STARTED] time=1776345127.934048 src=10.0.7.2 -> dst=10.0.10.7 size=392B
+[FLOW 7 ENDED] 1 pkts sent in 0.035s
+[FLOW 8 STARTED] time=1776345127.980659 src=10.0.7.2 -> dst=10.0.10.7 size=355B
+[FLOW 8 ENDED] 1 pkts sent in 0.018s
+[FLOW 9 STARTED] time=1776345127.999466 src=10.0.7.2 -> dst=10.0.9.5 size=930B
+[FLOW 9 ENDED] 1 pkts sent in 0.027s
+[FLOW 10 STARTED] time=1776345128.026903 src=10.0.7.2 -> dst=10.0.10.8 size=381384B
+[FLOW 11 STARTED] time=1776345128.150101 src=10.0.7.2 -> dst=10.0.9.6 size=614B
+[FLOW 11 ENDED] 1 pkts sent in 0.033s
+[FLOW 6 ENDED] 48 pkts sent in 0.369s
+[FLOW 12 STARTED] time=1776345128.334466 src=10.0.7.2 -> dst=10.0.10.8 size=450B
+[FLOW 13 STARTED] time=1776345128.399631 src=10.0.7.2 -> dst=10.0.9.5 size=354B
+[FLOW 12 ENDED] 1 pkts sent in 0.067s
+[FLOW 13 ENDED] 1 pkts sent in 0.021s
+[FLOW 14 STARTED] time=1776345128.511718 src=10.0.7.2 -> dst=10.0.9.6 size=1717B
+[FLOW 15 STARTED] time=1776345128.535057 src=10.0.7.2 -> dst=10.0.9.6 size=355B
+[FLOW 17 STARTED] time=1776345128.543153 src=10.0.7.2 -> dst=10.0.10.7 size=645B
+[FLOW 16 STARTED] time=1776345128.538157 src=10.0.7.2 -> dst=10.0.10.8 size=501B
+[FLOW 15 ENDED] 1 pkts sent in 0.018s
+[FLOW 14 ENDED] 2 pkts sent in 0.045s
+[FLOW 18 STARTED] time=1776345128.558416 src=10.0.7.2 -> dst=10.0.9.5 size=83419B
+[FLOW 17 ENDED] 1 pkts sent in 0.060s
+[FLOW 16 ENDED] 1 pkts sent in 0.075s
+[FLOW 19 STARTED] time=1776345128.635350 src=10.0.7.2 -> dst=10.0.10.8 size=580B
+[FLOW 19 ENDED] 1 pkts sent in 0.097s
+[FLOW 20 STARTED] time=1776345128.732885 src=10.0.7.2 -> dst=10.0.10.7 size=577B
+[FLOW 21 STARTED] time=1776345128.834957 src=10.0.7.2 -> dst=10.0.10.8 size=1540B
+[FLOW 20 ENDED] 1 pkts sent in 0.125s
+[FLOW 21 ENDED] 2 pkts sent in 0.063s
+[FLOW 22 STARTED] time=1776345128.897770 src=10.0.7.2 -> dst=10.0.9.6 size=354B
+[FLOW 22 ENDED] 1 pkts sent in 0.019s
+[FLOW 23 STARTED] time=1776345128.940222 src=10.0.7.2 -> dst=10.0.9.5 size=791B
+[FLOW 24 STARTED] time=1776345128.960801 src=10.0.7.2 -> dst=10.0.10.8 size=37963B
+[FLOW 23 ENDED] 1 pkts sent in 0.077s
+[FLOW 25 STARTED] time=1776345129.023054 src=10.0.7.2 -> dst=10.0.10.7 size=1768B
+[FLOW 25 ENDED] 2 pkts sent in 0.035s
+[FLOW 26 STARTED] time=1776345129.088641 src=10.0.7.2 -> dst=10.0.9.6 size=1225345B
+[FLOW 27 STARTED] time=1776345129.179699 src=10.0.7.2 -> dst=10.0.10.8 size=1594B
+[FLOW 27 ENDED] 2 pkts sent in 0.136s
+[FLOW 28 STARTED] time=1776345129.315779 src=10.0.7.2 -> dst=10.0.9.5 size=565B
+[FLOW 24 ENDED] 27 pkts sent in 0.407s
+[FLOW 29 STARTED] time=1776345129.368182 src=10.0.7.2 -> dst=10.0.10.8 size=311B
+[FLOW 28 ENDED] 1 pkts sent in 0.065s
+[FLOW 30 STARTED] time=1776345129.448847 src=10.0.7.2 -> dst=10.0.9.5 size=403B
+[FLOW 18 ENDED] 58 pkts sent in 0.889s
+[FLOW 29 ENDED] 1 pkts sent in 0.125s
+[FLOW 31 STARTED] time=1776345129.459216 src=10.0.7.2 -> dst=10.0.10.8 size=616B
+[FLOW 32 STARTED] time=1776345129.502746 src=10.0.7.2 -> dst=10.0.10.8 size=87855B
+[FLOW 30 ENDED] 1 pkts sent in 0.062s
+[FLOW 31 ENDED] 1 pkts sent in 0.055s
+[FLOW 33 STARTED] time=1776345129.545265 src=10.0.7.2 -> dst=10.0.9.5 size=409B
+[FLOW 34 STARTED] time=1776345129.605844 src=10.0.7.2 -> dst=10.0.10.7 size=642B
+[FLOW 34 ENDED] 1 pkts sent in 0.017s
+[FLOW 35 STARTED] time=1776345129.665649 src=10.0.7.2 -> dst=10.0.9.5 size=615B
+[FLOW 33 ENDED] 1 pkts sent in 0.144s
+[FLOW 35 ENDED] 1 pkts sent in 0.080s
+[FLOW 36 STARTED] time=1776345129.795771 src=10.0.7.2 -> dst=10.0.10.7 size=425B
+[FLOW 36 ENDED] 1 pkts sent in 0.029s
+[FLOW 37 STARTED] time=1776345129.843636 src=10.0.7.2 -> dst=10.0.10.8 size=773B
+[FLOW 37 ENDED] 1 pkts sent in 0.049s
+[FLOW 38 STARTED] time=1776345129.910858 src=10.0.7.2 -> dst=10.0.9.5 size=1542B
+[FLOW 39 STARTED] time=1776345130.046013 src=10.0.7.2 -> dst=10.0.10.8 size=649B
+[FLOW 40 STARTED] time=1776345130.081898 src=10.0.7.2 -> dst=10.0.9.6 size=614B
+[FLOW 40 ENDED] 1 pkts sent in 0.012s
+[FLOW 39 ENDED] 1 pkts sent in 0.049s
+[FLOW 41 STARTED] time=1776345130.150221 src=10.0.7.2 -> dst=10.0.10.7 size=442B
+[FLOW 38 ENDED] 2 pkts sent in 0.252s
+[FLOW 41 ENDED] 1 pkts sent in 0.026s
+[FLOW 42 STARTED] time=1776345130.204035 src=10.0.7.2 -> dst=10.0.10.8 size=279B
+[FLOW 42 ENDED] 1 pkts sent in 0.115s
+[FLOW 43 STARTED] time=1776345130.352412 src=10.0.7.2 -> dst=10.0.10.7 size=85530B
+[FLOW 44 STARTED] time=1776345130.520777 src=10.0.7.2 -> dst=10.0.10.7 size=646B
+[FLOW 44 ENDED] 1 pkts sent in 0.150s
+[FLOW 45 STARTED] time=1776345130.727780 src=10.0.7.2 -> dst=10.0.10.8 size=926B
+[FLOW 45 ENDED] 1 pkts sent in 0.367s
+[FLOW 32 ENDED] 61 pkts sent in 1.657s
+[FLOW 46 STARTED] time=1776345131.189292 src=10.0.7.2 -> dst=10.0.9.6 size=787B
+[FLOW 46 ENDED] 1 pkts sent in 0.024s
+[FLOW 47 STARTED] time=1776345131.213516 src=10.0.7.2 -> dst=10.0.10.7 size=756B
+[FLOW 47 ENDED] 1 pkts sent in 0.015s
+[FLOW 48 STARTED] time=1776345131.285095 src=10.0.7.2 -> dst=10.0.10.8 size=851B
+[FLOW 48 ENDED] 1 pkts sent in 0.012s
+[FLOW 49 STARTED] time=1776345131.328028 src=10.0.7.2 -> dst=10.0.9.5 size=778B
+[FLOW 49 ENDED] 1 pkts sent in 0.027s
+[FLOW 50 STARTED] time=1776345131.364875 src=10.0.7.2 -> dst=10.0.9.5 size=1429B
+[FLOW 50 ENDED] 1 pkts sent in 0.049s
+[FLOW 51 STARTED] time=1776345131.439354 src=10.0.7.2 -> dst=10.0.10.7 size=266B
+[FLOW 51 ENDED] 1 pkts sent in 0.037s
+[FLOW 43 ENDED] 60 pkts sent in 1.124s
+[FLOW 52 STARTED] time=1776345131.476727 src=10.0.7.2 -> dst=10.0.10.8 size=612B
+[FLOW 53 STARTED] time=1776345131.519842 src=10.0.7.2 -> dst=10.0.10.7 size=643B
+[FLOW 53 ENDED] 1 pkts sent in 0.029s
+[FLOW 52 ENDED] 1 pkts sent in 0.073s
+[FLOW 54 STARTED] time=1776345131.632181 src=10.0.7.2 -> dst=10.0.10.8 size=782B
+[FLOW 54 ENDED] 1 pkts sent in 0.015s
+[FLOW 55 STARTED] time=1776345131.750147 src=10.0.7.2 -> dst=10.0.10.8 size=462B
+[FLOW 55 ENDED] 1 pkts sent in 0.072s
+[FLOW 56 STARTED] time=1776345131.822895 src=10.0.7.2 -> dst=10.0.10.8 size=354B
+[FLOW 56 ENDED] 1 pkts sent in 0.061s
+[FLOW 10 ENDED] 264 pkts sent in 3.866s
+[FLOW 57 STARTED] time=1776345131.894391 src=10.0.7.2 -> dst=10.0.9.5 size=47901B
+[FLOW 58 STARTED] time=1776345131.922047 src=10.0.7.2 -> dst=10.0.10.7 size=861B
+[FLOW 58 ENDED] 1 pkts sent in 0.061s
+[FLOW 59 STARTED] time=1776345132.089047 src=10.0.7.2 -> dst=10.0.10.8 size=430B
+[FLOW 60 STARTED] time=1776345132.135622 src=10.0.7.2 -> dst=10.0.10.8 size=84680B
+[FLOW 57 ENDED] 34 pkts sent in 0.345s
+[FLOW 59 ENDED] 1 pkts sent in 0.185s
+[FLOW 61 STARTED] time=1776345132.324821 src=10.0.7.2 -> dst=10.0.9.6 size=557B
+[FLOW 62 STARTED] time=1776345132.506800 src=10.0.7.2 -> dst=10.0.10.7 size=653B
+[FLOW 61 ENDED] 1 pkts sent in 0.184s
+[FLOW 63 STARTED] time=1776345132.553017 src=10.0.7.2 -> dst=10.0.10.7 size=163604B
+[FLOW 62 ENDED] 1 pkts sent in 0.059s
+[FLOW 64 STARTED] time=1776345132.693488 src=10.0.7.2 -> dst=10.0.10.7 size=437B
+[FLOW 64 ENDED] 1 pkts sent in 0.034s
+[FLOW 65 STARTED] time=1776345132.767419 src=10.0.7.2 -> dst=10.0.10.7 size=64892B
+[FLOW 66 STARTED] time=1776345132.834740 src=10.0.7.2 -> dst=10.0.10.7 size=455B
+[FLOW 60 ENDED] 59 pkts sent in 0.703s
+[FLOW 67 STARTED] time=1776345132.855371 src=10.0.7.2 -> dst=10.0.9.5 size=308B
+[FLOW 68 STARTED] time=1776345132.970762 src=10.0.7.2 -> dst=10.0.10.8 size=280B
+[FLOW 66 ENDED] 1 pkts sent in 0.219s
+[FLOW 69 STARTED] time=1776345133.157918 src=10.0.7.2 -> dst=10.0.9.6 size=530B
+[FLOW 67 ENDED] 1 pkts sent in 0.310s
+[FLOW 68 ENDED] 1 pkts sent in 0.237s
+[FLOW 69 ENDED] 1 pkts sent in 0.051s
+[FLOW 70 STARTED] time=1776345133.265868 src=10.0.7.2 -> dst=10.0.9.5 size=586B
+[FLOW 70 ENDED] 1 pkts sent in 0.023s
+[FLOW 71 STARTED] time=1776345133.320885 src=10.0.7.2 -> dst=10.0.10.8 size=104885B
+[FLOW 72 STARTED] time=1776345133.401208 src=10.0.7.2 -> dst=10.0.9.6 size=35499B
+[FLOW 73 STARTED] time=1776345133.585170 src=10.0.7.2 -> dst=10.0.10.7 size=1519B
+[FLOW 73 ENDED] 2 pkts sent in 0.067s
+[FLOW 74 STARTED] time=1776345133.755543 src=10.0.7.2 -> dst=10.0.10.8 size=42114B
+[FLOW 75 STARTED] time=1776345133.917587 src=10.0.7.2 -> dst=10.0.10.7 size=355B
+[FLOW 75 ENDED] 1 pkts sent in 0.144s
+[FLOW 76 STARTED] time=1776345134.322604 src=10.0.7.2 -> dst=10.0.9.5 size=511B
+[FLOW 65 ENDED] 45 pkts sent in 1.587s
+[FLOW 76 ENDED] 1 pkts sent in 0.032s
+[FLOW 72 ENDED] 25 pkts sent in 0.983s
+[FLOW 77 STARTED] time=1776345134.532845 src=10.0.7.2 -> dst=10.0.10.8 size=1044B
+[FLOW 78 STARTED] time=1776345134.627279 src=10.0.7.2 -> dst=10.0.9.6 size=1664B
+[FLOW 74 ENDED] 30 pkts sent in 1.105s
+[FLOW 78 ENDED] 2 pkts sent in 0.264s
+[FLOW 71 ENDED] 73 pkts sent in 1.586s
+[FLOW 77 ENDED] 1 pkts sent in 0.390s
+[FLOW 63 ENDED] 114 pkts sent in 2.370s
+[FLOW 79 STARTED] time=1776345135.096997 src=10.0.7.2 -> dst=10.0.10.7 size=574B
+[FLOW 80 STARTED] time=1776345135.100582 src=10.0.7.2 -> dst=10.0.9.6 size=39217B
+[FLOW 81 STARTED] time=1776345135.108557 src=10.0.7.2 -> dst=10.0.10.7 size=84839B
+[FLOW 79 ENDED] 1 pkts sent in 0.012s
+[FLOW 82 STARTED] time=1776345135.118117 src=10.0.7.2 -> dst=10.0.9.6 size=57426B
+[FLOW 83 STARTED] time=1776345135.166742 src=10.0.7.2 -> dst=10.0.10.7 size=925B
+[FLOW 83 ENDED] 1 pkts sent in 0.056s
+[FLOW 82 ENDED] 40 pkts sent in 0.733s
+[FLOW 84 STARTED] time=1776345135.869837 src=10.0.7.2 -> dst=10.0.9.6 size=645B
+[FLOW 84 ENDED] 1 pkts sent in 0.168s
+[FLOW 80 ENDED] 28 pkts sent in 0.937s
+[FLOW 85 STARTED] time=1776345136.080881 src=10.0.7.2 -> dst=10.0.10.8 size=2770925B
+[FLOW 81 ENDED] 59 pkts sent in 0.999s
+[FLOW 86 STARTED] time=1776345136.117031 src=10.0.7.2 -> dst=10.0.9.5 size=587B
+[FLOW 86 ENDED] 1 pkts sent in 0.009s
+[FLOW 87 STARTED] time=1776345136.389045 src=10.0.7.2 -> dst=10.0.9.6 size=587B
+[FLOW 87 ENDED] 1 pkts sent in 0.062s
+[FLOW 88 STARTED] time=1776345136.459838 src=10.0.7.2 -> dst=10.0.10.8 size=614B
+[FLOW 89 STARTED] time=1776345136.463162 src=10.0.7.2 -> dst=10.0.10.7 size=355B
+[FLOW 88 ENDED] 1 pkts sent in 0.006s
+[FLOW 89 ENDED] 1 pkts sent in 0.024s
+[FLOW 90 STARTED] time=1776345136.486977 src=10.0.7.2 -> dst=10.0.10.7 size=48384B
+[FLOW 91 STARTED] time=1776345136.575688 src=10.0.7.2 -> dst=10.0.10.7 size=653B
+[FLOW 91 ENDED] 1 pkts sent in 0.173s
+[FLOW 92 STARTED] time=1776345136.828022 src=10.0.7.2 -> dst=10.0.10.8 size=916B
+[FLOW 92 ENDED] 1 pkts sent in 0.161s
+[FLOW 93 STARTED] time=1776345137.017682 src=10.0.7.2 -> dst=10.0.10.7 size=38523B
+[FLOW 90 ENDED] 34 pkts sent in 0.819s
+[FLOW 94 STARTED] time=1776345137.181723 src=10.0.7.2 -> dst=10.0.9.6 size=769B
+[FLOW 95 STARTED] time=1776345137.349811 src=10.0.7.2 -> dst=10.0.10.7 size=1558B
+[FLOW 95 ENDED] 2 pkts sent in 0.015s
+[FLOW 94 ENDED] 1 pkts sent in 0.191s
+[FLOW 96 STARTED] time=1776345137.467348 src=10.0.7.2 -> dst=10.0.9.6 size=427B
+[FLOW 97 STARTED] time=1776345137.699929 src=10.0.7.2 -> dst=10.0.10.7 size=266B
+[FLOW 96 ENDED] 1 pkts sent in 0.257s
+[FLOW 97 ENDED] 1 pkts sent in 0.084s
+[FLOW 93 ENDED] 27 pkts sent in 0.893s
+[FLOW 98 STARTED] time=1776345137.949466 src=10.0.7.2 -> dst=10.0.10.8 size=572B
+[FLOW 98 ENDED] 1 pkts sent in 0.063s
+[FLOW 99 STARTED] time=1776345138.023192 src=10.0.7.2 -> dst=10.0.9.5 size=785B
+[FLOW 100 STARTED] time=1776345138.056206 src=10.0.7.2 -> dst=10.0.10.7 size=513B
+[FLOW 99 ENDED] 1 pkts sent in 0.108s
+[FLOW 100 ENDED] 1 pkts sent in 0.112s
+[FLOW 26 ENDED] 848 pkts sent in 10.306s
+[FLOW 85 ENDED] 1917 pkts sent in 10.522s
 
 ================================================================================
-HADOOP-LIKE WORKLOAD REPLAY COMPLETE
+EMPIRICAL WORKLOAD REPLAY COMPLETE
 ================================================================================
-Sender host         : h2
-Source IP           : 10.0.7.2
-Total logical flows : 80
-Total packets sent  : 2614
-Total bytes sent    : 2313180
-Approx MB sent      : 2.21 MB
-================================================================================
-
-Per-flow summary:
-Flow 001 |  small | 10.0.7.2 -> 10.0.9.5 |   13 pkts |    4927 bytes |  0.252s
-Flow 002 | medium | 10.0.7.2 -> 10.0.9.6 |   26 pkts |   23192 bytes |  0.409s
-Flow 003 |  small | 10.0.7.2 -> 10.0.9.5 |   15 pkts |    6165 bytes |  0.263s
-Flow 004 |  small | 10.0.7.2 -> 10.0.10.8 |   18 pkts |    8316 bytes |  0.271s
-Flow 005 |  small | 10.0.7.2 -> 10.0.9.5 |   18 pkts |    9198 bytes |  0.297s
-Flow 006 | medium | 10.0.7.2 -> 10.0.9.5 |   38 pkts |   21888 bytes |  0.567s
-Flow 007 |  small | 10.0.7.2 -> 10.0.10.8 |   12 pkts |    3948 bytes |  0.175s
-Flow 008 |  small | 10.0.7.2 -> 10.0.9.5 |   17 pkts |    7701 bytes |  0.349s
-Flow 009 |  small | 10.0.7.2 -> 10.0.9.6 |    6 pkts |    3432 bytes |  0.110s
-Flow 010 |  small | 10.0.7.2 -> 10.0.10.7 |   15 pkts |    4335 bytes |  0.237s
-Flow 011 |  small | 10.0.7.2 -> 10.0.10.8 |   15 pkts |    7065 bytes |  0.256s
-Flow 012 | medium | 10.0.7.2 -> 10.0.9.6 |   40 pkts |   23880 bytes |  0.686s
-Flow 013 |  small | 10.0.7.2 -> 10.0.9.5 |    9 pkts |    4410 bytes |  0.179s
-Flow 014 |  small | 10.0.7.2 -> 10.0.10.7 |   20 pkts |    8940 bytes |  0.365s
-Flow 015 | medium | 10.0.7.2 -> 10.0.10.8 |   48 pkts |   32832 bytes |  0.751s
-Flow 016 |  small | 10.0.7.2 -> 10.0.9.5 |   12 pkts |    6816 bytes |  0.200s
-Flow 017 |  small | 10.0.7.2 -> 10.0.10.7 |   13 pkts |    5785 bytes |  0.218s
-Flow 018 |  small | 10.0.7.2 -> 10.0.10.8 |   15 pkts |    6195 bytes |  0.223s
-Flow 019 |  small | 10.0.7.2 -> 10.0.10.8 |    8 pkts |    3312 bytes |  0.202s
-Flow 020 |  small | 10.0.7.2 -> 10.0.10.7 |    9 pkts |    3366 bytes |  0.156s
-Flow 021 | medium | 10.0.7.2 -> 10.0.9.5 |   50 pkts |   37500 bytes |  0.733s
-Flow 022 | medium | 10.0.7.2 -> 10.0.9.5 |   50 pkts |   42950 bytes |  0.811s
-Flow 023 |  small | 10.0.7.2 -> 10.0.9.5 |   18 pkts |    9414 bytes |  0.375s
-Flow 024 |  large | 10.0.7.2 -> 10.0.10.7 |  109 pkts |  146387 bytes |  1.631s
-Flow 025 |  small | 10.0.7.2 -> 10.0.10.7 |   14 pkts |    5250 bytes |  0.267s
-Flow 026 |  small | 10.0.7.2 -> 10.0.10.7 |    7 pkts |    2037 bytes |  0.131s
-Flow 027 |  small | 10.0.7.2 -> 10.0.10.8 |   15 pkts |    6165 bytes |  0.228s
-Flow 028 |  small | 10.0.7.2 -> 10.0.9.5 |   18 pkts |    8010 bytes |  0.289s
-Flow 029 | medium | 10.0.7.2 -> 10.0.9.5 |   38 pkts |   38532 bytes |  0.650s
-Flow 030 |  small | 10.0.7.2 -> 10.0.10.7 |   18 pkts |    9864 bytes |  0.353s
-Flow 031 |  small | 10.0.7.2 -> 10.0.10.7 |   18 pkts |    6462 bytes |  0.366s
-Flow 032 |  small | 10.0.7.2 -> 10.0.9.6 |   17 pkts |    9503 bytes |  0.291s
-Flow 033 | medium | 10.0.7.2 -> 10.0.9.6 |   54 pkts |   48924 bytes |  0.786s
-Flow 034 |  small | 10.0.7.2 -> 10.0.10.8 |   20 pkts |   10580 bytes |  0.399s
-Flow 035 |  small | 10.0.7.2 -> 10.0.9.5 |    7 pkts |    2415 bytes |  0.167s
-Flow 036 |  small | 10.0.7.2 -> 10.0.9.6 |   17 pkts |    4522 bytes |  0.343s
-Flow 037 |  small | 10.0.7.2 -> 10.0.10.8 |   13 pkts |    4095 bytes |  0.210s
-Flow 038 |  large | 10.0.7.2 -> 10.0.9.5 |   91 pkts |   94640 bytes |  1.369s
-Flow 039 |  small | 10.0.7.2 -> 10.0.10.8 |    9 pkts |    2772 bytes |  0.166s
-Flow 040 |  large | 10.0.7.2 -> 10.0.10.7 |  174 pkts |  234900 bytes |  2.787s
-Flow 041 | medium | 10.0.7.2 -> 10.0.9.5 |   47 pkts |   31819 bytes |  0.802s
-Flow 042 |  small | 10.0.7.2 -> 10.0.9.5 |   20 pkts |   10600 bytes |  0.311s
-Flow 043 |  small | 10.0.7.2 -> 10.0.9.6 |    9 pkts |    5328 bytes |  0.170s
-Flow 044 |  small | 10.0.7.2 -> 10.0.9.6 |   17 pkts |    9537 bytes |  0.310s
-Flow 045 |  small | 10.0.7.2 -> 10.0.10.8 |    9 pkts |    4248 bytes |  0.223s
-Flow 046 | medium | 10.0.7.2 -> 10.0.9.5 |   31 pkts |   24645 bytes |  0.520s
-Flow 047 | medium | 10.0.7.2 -> 10.0.9.5 |   59 pkts |   47554 bytes |  0.959s
-Flow 048 |  small | 10.0.7.2 -> 10.0.10.7 |   20 pkts |    5160 bytes |  0.328s
-Flow 049 | medium | 10.0.7.2 -> 10.0.10.8 |   30 pkts |   31560 bytes |  0.545s
-Flow 050 |  small | 10.0.7.2 -> 10.0.9.5 |    8 pkts |    2208 bytes |  0.148s
-Flow 051 |  large | 10.0.7.2 -> 10.0.9.6 |  101 pkts |  101505 bytes |  1.590s
-Flow 052 |  small | 10.0.7.2 -> 10.0.10.8 |   13 pkts |    8450 bytes |  0.223s
-Flow 053 |  small | 10.0.7.2 -> 10.0.9.6 |    9 pkts |    3213 bytes |  0.175s
-Flow 054 |  small | 10.0.7.2 -> 10.0.9.5 |   10 pkts |    3360 bytes |  0.177s
-Flow 055 |  small | 10.0.7.2 -> 10.0.10.7 |   15 pkts |    4800 bytes |  0.287s
-Flow 056 | medium | 10.0.7.2 -> 10.0.10.8 |   45 pkts |   46305 bytes |  0.753s
-Flow 057 | medium | 10.0.7.2 -> 10.0.10.8 |   39 pkts |   36933 bytes |  0.651s
-Flow 058 | medium | 10.0.7.2 -> 10.0.9.6 |   38 pkts |   29032 bytes |  0.679s
-Flow 059 | medium | 10.0.7.2 -> 10.0.10.7 |   37 pkts |   32893 bytes |  0.625s
-Flow 060 |  small | 10.0.7.2 -> 10.0.10.8 |   20 pkts |   11660 bytes |  0.345s
-Flow 061 |  small | 10.0.7.2 -> 10.0.9.5 |    8 pkts |    4920 bytes |  0.183s
-Flow 062 |  small | 10.0.7.2 -> 10.0.9.6 |   11 pkts |    4345 bytes |  0.177s
-Flow 063 | medium | 10.0.7.2 -> 10.0.10.8 |   44 pkts |   44440 bytes |  0.764s
-Flow 064 | medium | 10.0.7.2 -> 10.0.9.6 |   51 pkts |   53091 bytes |  0.896s
-Flow 065 |  small | 10.0.7.2 -> 10.0.10.7 |   18 pkts |    5706 bytes |  0.340s
-Flow 066 |  small | 10.0.7.2 -> 10.0.9.5 |    9 pkts |    2358 bytes |  0.225s
-Flow 067 |  large | 10.0.7.2 -> 10.0.9.5 |   91 pkts |   89817 bytes |  1.314s
-Flow 068 | medium | 10.0.7.2 -> 10.0.10.7 |   38 pkts |   33858 bytes |  0.648s
-Flow 069 |  small | 10.0.7.2 -> 10.0.10.7 |   17 pkts |    7514 bytes |  0.358s
-Flow 070 |  small | 10.0.7.2 -> 10.0.10.8 |   14 pkts |    8512 bytes |  0.261s
-Flow 071 |  small | 10.0.7.2 -> 10.0.9.6 |   18 pkts |    5058 bytes |  0.331s
-Flow 072 |  small | 10.0.7.2 -> 10.0.10.8 |    9 pkts |    3258 bytes |  0.188s
-Flow 073 | medium | 10.0.7.2 -> 10.0.10.8 |   49 pkts |   33859 bytes |  0.950s
-Flow 074 |  small | 10.0.7.2 -> 10.0.9.6 |   10 pkts |    5640 bytes |  0.219s
-Flow 075 |  large | 10.0.7.2 -> 10.0.9.5 |  245 pkts |  310170 bytes |  3.927s
-Flow 076 |  small | 10.0.7.2 -> 10.0.10.7 |    9 pkts |    5391 bytes |  0.189s
-Flow 077 |  large | 10.0.7.2 -> 10.0.10.8 |  124 pkts |  126480 bytes |  2.240s
-Flow 078 |  small | 10.0.7.2 -> 10.0.10.7 |    6 pkts |    3318 bytes |  0.078s
-Flow 079 |  large | 10.0.7.2 -> 10.0.10.7 |  132 pkts |  189420 bytes |  2.272s
-Flow 080 |  small | 10.0.7.2 -> 10.0.9.5 |   10 pkts |    4590 bytes |  0.222s

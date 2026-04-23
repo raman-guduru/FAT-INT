@@ -5,13 +5,11 @@ import os
 import time
 import argparse
 import json
-import threading
-from scapy.all import sniff, IP, TCP, bind_layers
+from scapy.all import sniff, IP, TCP
 
-
-# =====================================================================================
-# FAT-INT / Classical INT Header Parsers
-# =====================================================================================
+# ============================================================
+# FAT-INT HEADER
+# ============================================================
 
 class FatIntHeader():
     def __init__(self):
@@ -24,257 +22,190 @@ class FatIntHeader():
     def from_bytes(data):
         hdr = FatIntHeader()
         h = io.BytesIO(data)
-        hdr.case = int.from_bytes(h.read(1), byteorder='big')
-        hdr.queue_space = int.from_bytes(h.read(1), byteorder='big')
-        hdr.hop_space = int.from_bytes(h.read(1), byteorder='big')
-        hdr.egress_space = int.from_bytes(h.read(1), byteorder='big')
+        hdr.case = int.from_bytes(h.read(1), 'big')
+        hdr.queue_space = int.from_bytes(h.read(1), 'big')
+        hdr.hop_space = int.from_bytes(h.read(1), 'big')
+        hdr.egress_space = int.from_bytes(h.read(1), 'big')
         return hdr
 
 
-class HopMetadata():
-    def __init__(self):
-        self.switch_id = None
-        self.hop_latency = None
+# ============================================================
+# METADATA PARSERS
+# ============================================================
 
-    @staticmethod
-    def from_bytes(data):
-        hop = HopMetadata()
-        d = io.BytesIO(data)
-        hop.hop_latency = int.from_bytes(d.read(4), byteorder='big')
-        hop.switch_id = int.from_bytes(d.read(1), byteorder='big')
-        return hop
+def parse_queue_metadata(raw, count):
+    entries = []
+    offset = 0
+    size = 5
 
+    for _ in range(count):
+        chunk = raw[offset:offset+size]
+        if len(chunk) < size:
+            break
 
-class QueueMetadata():
-    def __init__(self):
-        self.switch_id = None
-        self.q_id = None
-        self.q_occupancy = None
+        d = io.BytesIO(chunk)
+        q_id = int.from_bytes(d.read(1), 'big')
+        q_occ = int.from_bytes(d.read(3), 'big')
+        switch_id = int.from_bytes(d.read(1), 'big')
 
-    @staticmethod
-    def from_bytes(data):
-        queue = QueueMetadata()
-        d = io.BytesIO(data)
-        queue.q_id = int.from_bytes(d.read(1), byteorder='big')
-        queue.q_occupancy = int.from_bytes(d.read(3), byteorder='big')
-        queue.switch_id = int.from_bytes(d.read(1), byteorder='big')
-        return queue
-
-
-class EgressMetadata():
-    def __init__(self):
-        self.switch_id = None
-        self.egress_tstamp = None
-
-    @staticmethod
-    def from_bytes(data):
-        egress = EgressMetadata()
-        d = io.BytesIO(data)
-        egress.egress_tstamp = int.from_bytes(d.read(4), byteorder='big')
-        egress.switch_id = int.from_bytes(d.read(1), byteorder='big')
-        return egress
-
-
-# =====================================================================================
-# Parsing Helpers
-# =====================================================================================
-
-def parse_fatint_header(pkt):
-    int_metadata = bytes(pkt[TCP].payload)
-    return FatIntHeader.from_bytes(int_metadata[:4])
-
-
-def parse_metadata_q(pkt, queue_space):
-    queue_count = int(queue_space)
-    queue_meta_len = 5
-    int_metadata = bytes(pkt[TCP].payload)[4:]
-
-    queue_entries = []
-    for i in range(queue_count):
-        metadata_source = int_metadata[i * queue_meta_len:(i + 1) * queue_meta_len]
-        if len(metadata_source) < queue_meta_len:
-            continue
-        meta = QueueMetadata.from_bytes(metadata_source)
-        queue_entries.append({
-            'switch_id': meta.switch_id,
-            'q_id': meta.q_id,
-            'queue_occ': meta.q_occupancy
+        entries.append({
+            "switch_id": switch_id,
+            "q_id": q_id,
+            "queue_occ": q_occ
         })
 
-    return queue_entries, queue_count * queue_meta_len
+        offset += size
+
+    return entries, offset
 
 
-def parse_metadata_hop(pkt, hop_space, queue_bytes):
-    hop_count = int(hop_space)
-    hop_meta_len = 5
-    int_metadata = bytes(pkt[TCP].payload)[4 + queue_bytes:]
+def parse_hop_metadata(raw, count):
+    entries = []
+    offset = 0
+    size = 5
 
-    hop_entries = []
-    for i in range(hop_count):
-        metadata_source = int_metadata[i * hop_meta_len:(i + 1) * hop_meta_len]
-        if len(metadata_source) < hop_meta_len:
-            continue
-        meta = HopMetadata.from_bytes(metadata_source)
-        hop_entries.append({
-            'switch_id': meta.switch_id,
-            'hop_lat': meta.hop_latency
+    for _ in range(count):
+        chunk = raw[offset:offset+size]
+        if len(chunk) < size:
+            break
+
+        d = io.BytesIO(chunk)
+        hop_lat = int.from_bytes(d.read(4), 'big')
+        switch_id = int.from_bytes(d.read(1), 'big')
+
+        entries.append({
+            "switch_id": switch_id,
+            "hop_lat": hop_lat
         })
 
-    return hop_entries, hop_count * hop_meta_len
+        offset += size
+
+    return entries, offset
 
 
-def parse_metadata_egress(pkt, egress_space, queue_bytes, hop_bytes):
-    egress_count = int(egress_space)
-    egress_meta_len = 5
-    int_metadata = bytes(pkt[TCP].payload)[4 + queue_bytes + hop_bytes:]
+def parse_egress_metadata(raw, count):
+    entries = []
+    offset = 0
+    size = 5
 
-    egress_entries = []
-    for i in range(egress_count):
-        metadata_source = int_metadata[i * egress_meta_len:(i + 1) * egress_meta_len]
-        if len(metadata_source) < egress_meta_len:
-            continue
-        meta = EgressMetadata.from_bytes(metadata_source)
-        egress_entries.append({
-            'switch_id': meta.switch_id,
-            'egress_ts': meta.egress_tstamp
+    for _ in range(count):
+        chunk = raw[offset:offset+size]
+        if len(chunk) < size:
+            break
+
+        d = io.BytesIO(chunk)
+        egress_ts = int.from_bytes(d.read(4), 'big')
+        switch_id = int.from_bytes(d.read(1), 'big')
+
+        entries.append({
+            "switch_id": switch_id,
+            "egress_ts": egress_ts
         })
 
-    return egress_entries
+        offset += size
+
+    return entries
 
 
-# =====================================================================================
-# Packet Parser
-# =====================================================================================
+# ============================================================
+# PACKET PROCESSING
+# ============================================================
 
-def parsing_recv_packets(pkt):
+def process_packet(pkt):
     try:
-        # We still strictly need IP and TCP layers to log basic flow info
         if IP not in pkt or TCP not in pkt:
             return
 
-        # FIX: Extract the true capture timestamp from Scapy rather than the parsing time
+        # Ignore ACK-only packets
+        if len(pkt[TCP].payload) == 0:
+            return
+
         timestamp = float(pkt.time)
 
         src_ip = pkt[IP].src
         dst_ip = pkt[IP].dst
         sport = pkt[TCP].sport
         dport = pkt[TCP].dport
-        ip_id = pkt[IP].id
-        ttl = pkt[IP].ttl
-        pkt_len = len(pkt)
 
         flow_id = f"{src_ip}:{sport}->{dst_ip}:{dport}"
 
-        # ---------------------------------------------------------------------
-        # Set Default values for Non-INT packets
-        # ---------------------------------------------------------------------
-        int_case = None
-        queue_space = 0
-        hop_space = 0
-        egress_space = 0
-        queue_entries = []
-        hop_entries = []
-        egress_entries = []
-
-        # ---------------------------------------------------------------------
-        # Attempt to parse INT Metadata (Only if payload exists and TOS != 0x3)
-        # ---------------------------------------------------------------------
-        if pkt[TCP].payload and pkt[IP].tos != 0x3:
-            try:
-                fat_hdr = parse_fatint_header(pkt)
-
-                if fat_hdr.case in [0, 1]:
-                    q_ents, q_bytes = parse_metadata_q(pkt, fat_hdr.queue_space)
-                    h_ents, h_bytes = parse_metadata_hop(pkt, fat_hdr.hop_space, q_bytes)
-                    e_ents = parse_metadata_egress(pkt, fat_hdr.egress_space, q_bytes, h_bytes)
-                    
-                    int_case = fat_hdr.case
-                    queue_space = fat_hdr.queue_space
-                    hop_space = fat_hdr.hop_space
-                    egress_space = fat_hdr.egress_space
-                    queue_entries = q_ents
-                    hop_entries = h_ents
-                    egress_entries = e_ents
-            except Exception:
-                pass
-
-        # ---------------------------------------------------------------------
-        # Log the Packet
-        # ---------------------------------------------------------------------
         record = {
             'timestamp': timestamp,
             'flow_id': flow_id,
             'src_ip': src_ip,
             'dst_ip': dst_ip,
-            'sport': sport,
-            'dport': dport,
-            'ip_id': ip_id,
-            'ttl': ttl,
-            'pkt_len': pkt_len,
-            'int_case': int_case,
-            'queue_space': queue_space,
-            'hop_space': hop_space,
-            'egress_space': egress_space,
-            'queue_metadata': queue_entries,
-            'hop_metadata': hop_entries,
-            'egress_metadata': egress_entries
+            'pkt_len': len(pkt),
+            'int_case': None,
+            'queue_metadata': [],
+            'hop_metadata': [],
+            'egress_metadata': []
         }
 
-        print(json.dumps(record))
+        raw = bytes(pkt[TCP].payload)
 
-    except Exception as e:
+        # Need at least header
+        if len(raw) < 4:
+            print(json.dumps(record), flush=True)
+            return
+
+        # ---------------- INT HEADER ----------------
+        hdr = FatIntHeader.from_bytes(raw[:4])
+
+        # sanity check (prevents parsing garbage)
+        if hdr.case not in [0, 1]:
+            print(json.dumps(record), flush=True)
+            return
+
+        record['int_case'] = hdr.case
+
+        offset = 4
+
+        # ---------------- QUEUE ----------------
+        q_raw = raw[offset:]
+        q_entries, used_q = parse_queue_metadata(q_raw, hdr.queue_space)
+        record['queue_metadata'] = q_entries
+        offset += used_q
+
+        # ---------------- HOP ----------------
+        h_raw = raw[offset:]
+        h_entries, used_h = parse_hop_metadata(h_raw, hdr.hop_space)
+        record['hop_metadata'] = h_entries
+        offset += used_h
+
+        # ---------------- EGRESS ----------------
+        e_raw = raw[offset:]
+        e_entries = parse_egress_metadata(e_raw, hdr.egress_space)
+        record['egress_metadata'] = e_entries
+
+        print(json.dumps(record), flush=True)
+
+    except Exception:
         pass
 
 
-# =====================================================================================
-# Packet Capture
-# =====================================================================================
-
-def handle_pkt(pkt):
-    global recv_pkts
-    recv_pkts.append(pkt)
-
-
-def receive_packet():
-    global iface
-    bind_layers(IP, TCP)
-    sniff(iface=iface, filter="tcp", prn=lambda x: handle_pkt(x), store=False)
-
-
-# =====================================================================================
-# Args
-# =====================================================================================
+# ============================================================
+# MAIN
+# ============================================================
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--file_path', help='Absolute project path', type=str, required=True)
-    parser.add_argument('--receiver', help='Name of the receiving host', type=str, required=True)
-    parser.add_argument('--duration', help='Sniff duration in seconds', type=int, default=240)
+    parser.add_argument('--file_path', required=True)
+    parser.add_argument('--receiver', required=True)
+    parser.add_argument('--duration', type=int, default=240)
     return parser.parse_args()
 
 
-# =====================================================================================
-# Main
-# =====================================================================================
-
 def main():
-    global iface, recv_pkts
-    recv_pkts = []
     args = get_args()
 
-    # Pick Mininet interface
-    ifaces = [i for i in os.listdir('/sys/class/net/') if 'eth' in i]
-    if not ifaces:
-        print("No ethernet interface found")
-        sys.exit(1)
+    iface = [i for i in os.listdir('/sys/class/net/') if 'eth' in i][0]
 
-    iface = ifaces[0]
-
-    # Output directory
     log_dir = os.path.join(args.file_path, "FAT_INT", "BMv2", "example", "packets")
     os.makedirs(log_dir, exist_ok=True)
 
-    file_name = os.path.join(log_dir, f"result_temp_{args.receiver}.txt")
+    file_name = os.path.join(log_dir, f"result_{args.receiver}.txt")
+
+    # 🔥 line-buffered → real-time file updates
     sys.stdout = open(file_name, 'w', buffering=1)
 
     print(json.dumps({
@@ -282,28 +213,20 @@ def main():
         "receiver": args.receiver,
         "iface": iface,
         "duration": args.duration
-    }))
+    }), flush=True)
 
-    receive_thread = threading.Thread(target=receive_packet, args=())
-    receive_thread.daemon = True
-    receive_thread.start()
-
-    init_time = time.time()
-
-    while (time.time() - init_time) < args.duration:
-        time.sleep(1)
+    sniff(
+        iface=iface,
+        filter="tcp",
+        prn=process_packet,
+        store=False,
+        timeout=args.duration
+    )
 
     print(json.dumps({
         "event": "receiver_stopped",
-        "receiver": args.receiver,
-        "captured_packets": len(recv_pkts)
-    }))
-
-    # Now when we parse, Scapy's saved `pkt.time` will be accurate
-    for pkt in recv_pkts:
-        parsing_recv_packets(pkt)
-
-    sys.exit(0)
+        "receiver": args.receiver
+    }), flush=True)
 
 
 if __name__ == '__main__':

@@ -18,7 +18,7 @@ def config_network(p4):
     net.cli_enabled = False
     
     # Link option
-    linkops = dict(bw=1000, delay='1ms', loss=0, use_htb=True)
+    linkops = dict(bw=10, delay='1ms', loss=0, use_htb=True)
 
     # Network general options
     net.setLogLevel('info')
@@ -112,9 +112,29 @@ def main():
     sleep(2)
 
     # 2. Start sender scripts generating the Hadoop workload
+    # 1. Define the path to your pre-generated Gold Standard PCAP
+    pcap_path = f"{args.file_path}/FAT_INT/hadoop_master_fixed.pcap"
+
     for sender in senders:
-        send_cmd = f'python3 {args.file_path}/FAT_INT/BMv2/example/packets/uc1_send.py --file_path {args.file_path} --sender {sender} --load 0.4 --num_flows 80'
+        send_cmd = f'python3 {args.file_path}/FAT_INT/BMv2/example/packets/uc1_send.py --sender {sender} --size_csv /home/p4/FAT_INT/BMv2/flow_size.csv --arrival_csv /home/p4/FAT_INT/BMv2/syn_inter.csv --load 0.4 --num_flows 80'
         host_node = net.net.get(sender)
+        
+        # In Mininet, the interface name is typically 'hostname-eth0' (e.g., h1-eth0)
+        # # We use this to tell tcpreplay exactly where to inject the bytes
+        iface = f"{sender}-eth0"
+        
+        # # TCPreplay Flags:
+        # # --tops: Replay at the 'natural' speed of the timestamps in the file (our 40% load)
+        # # -i: The target interface
+        # # -K: Pre-load the whole PCAP into RAM before starting to avoid disk I/O lag
+        # # --loop: (Optional) Change to --loop=0 for infinite or --loop=5 for multiple passes
+        # send_cmd = f"sudo tcpreplay -i {iface} -K {pcap_path}"
+        
+        # print(f"[*] Initializing TCPreplay on {sender} ({iface})...")
+        # print(sender)
+        
+        # # We still use the Process wrapper to keep these running in the background 
+        # so the orchestrator can start h1, h2, h3, and h4 nearly simultaneously.
         process = Process(target=run_command_on_host, args=(host_node, send_cmd))
         process.start()
         processes.append(process)
