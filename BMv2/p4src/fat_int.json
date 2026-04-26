@@ -9,8 +9,13 @@
         ["tmp_1", 8, false],
         ["tmp_2", 16, false],
         ["tmp_3", 16, false],
-        ["tmp_4", 16, false],
-        ["tmp_5", 8, false],
+        ["tmp_4", 32, false],
+        ["tmp_5", 32, false],
+        ["tmp_6", 8, false],
+        ["tmp_7", 16, false],
+        ["tmp_8", 16, false],
+        ["tmp_9", 16, false],
+        ["tmp_10", 8, false],
         ["metadata.switch_id", 8, false],
         ["metadata.sampling_space_q", 8, false],
         ["metadata.sampling_space_hop", 8, false],
@@ -29,6 +34,10 @@
         ["metadata.count_q", 1, false],
         ["metadata.count_hop", 1, false],
         ["metadata.count_egress", 1, false],
+        ["metadata.ecmp_group_id", 16, false],
+        ["metadata.ecmp_num_members", 16, false],
+        ["metadata.ecmp_hash", 16, false],
+        ["metadata.ecmp_index", 16, false],
         ["_padding_0", 4, false]
       ]
     },
@@ -848,7 +857,7 @@
     {
       "name" : "calc",
       "id" : 0,
-      "algo" : "crc32",
+      "algo" : "crc16",
       "input" : [
         {
           "type" : "field",
@@ -869,7 +878,14 @@
         {
           "type" : "field",
           "value" : ["scalars", "tmp_3"]
-        },
+        }
+      ]
+    },
+    {
+      "name" : "calc_0",
+      "id" : 1,
+      "algo" : "crc32",
+      "input" : [
         {
           "type" : "field",
           "value" : ["scalars", "tmp_4"]
@@ -877,6 +893,26 @@
         {
           "type" : "field",
           "value" : ["scalars", "tmp_5"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_6"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_7"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_8"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_9"]
+        },
+        {
+          "type" : "field",
+          "value" : ["scalars", "tmp_10"]
         }
       ]
     }
@@ -914,8 +950,14 @@
       "primitives" : []
     },
     {
-      "name" : "MyIngress.int_set_source",
+      "name" : "NoAction",
       "id" : 5,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "MyIngress.int_set_source",
+      "id" : 6,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -941,7 +983,7 @@
     },
     {
       "name" : "MyIngress.set_egress_port",
-      "id" : 6,
+      "id" : 7,
       "runtime_data" : [
         {
           "name" : "port",
@@ -1014,7 +1056,7 @@
     },
     {
       "name" : "MyIngress.set_switch_id",
-      "id" : 7,
+      "id" : 8,
       "runtime_data" : [
         {
           "name" : "switch_id",
@@ -1045,7 +1087,7 @@
     },
     {
       "name" : "MyIngress.valid_space",
-      "id" : 8,
+      "id" : 9,
       "runtime_data" : [
         {
           "name" : "case",
@@ -1125,7 +1167,7 @@
     },
     {
       "name" : "MyIngress.set_space",
-      "id" : 9,
+      "id" : 10,
       "runtime_data" : [
         {
           "name" : "queue_space",
@@ -1202,7 +1244,7 @@
     },
     {
       "name" : "MyIngress.adding_space_q",
-      "id" : 10,
+      "id" : 11,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -1251,7 +1293,7 @@
     },
     {
       "name" : "MyIngress.adding_space_hop",
-      "id" : 11,
+      "id" : 12,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -1300,7 +1342,7 @@
     },
     {
       "name" : "MyIngress.adding_space_egress",
-      "id" : 12,
+      "id" : 13,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -1349,7 +1391,7 @@
     },
     {
       "name" : "MyIngress.valid_space_q",
-      "id" : 13,
+      "id" : 14,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -1409,7 +1451,7 @@
     },
     {
       "name" : "MyIngress.valid_space_hop",
-      "id" : 14,
+      "id" : 15,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -1469,7 +1511,7 @@
     },
     {
       "name" : "MyIngress.valid_space_egress",
-      "id" : 15,
+      "id" : 16,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -1528,8 +1570,62 @@
       ]
     },
     {
-      "name" : "fat_int24",
-      "id" : 16,
+      "name" : "MyIngress.set_ecmp_group",
+      "id" : 17,
+      "runtime_data" : [
+        {
+          "name" : "group_id",
+          "bitwidth" : 16
+        },
+        {
+          "name" : "num_members",
+          "bitwidth" : 16
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.ecmp_group_id"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/ingress_action.p4",
+            "line" : 58,
+            "column" : 4,
+            "source_fragment" : "meta.ecmp_group_id = group_id"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.ecmp_num_members"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 1
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/ingress_action.p4",
+            "line" : 59,
+            "column" : 4,
+            "source_fragment" : "meta.ecmp_num_members = num_members"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "fat_int30",
+      "id" : 18,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -1546,8 +1642,8 @@
           ],
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 24,
-            "column" : 59,
+            "line" : 33,
+            "column" : 6,
             "source_fragment" : "hdr.ipv4.srcAddr"
           }
         },
@@ -1565,8 +1661,8 @@
           ],
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 25,
-            "column" : 10,
+            "line" : 33,
+            "column" : 24,
             "source_fragment" : "hdr.ipv4.dstAddr"
           }
         },
@@ -1584,8 +1680,8 @@
           ],
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 26,
-            "column" : 10,
+            "line" : 33,
+            "column" : 42,
             "source_fragment" : "hdr.ipv4.protocol"
           }
         },
@@ -1598,14 +1694,14 @@
             },
             {
               "type" : "field",
-              "value" : ["ipv4", "identification"]
+              "value" : ["tcp", "srcPort"]
             }
           ],
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 27,
-            "column" : 10,
-            "source_fragment" : "hdr.ipv4.identification"
+            "line" : 33,
+            "column" : 61,
+            "source_fragment" : "hdr.tcp.srcPort"
           }
         },
         {
@@ -1617,16 +1713,50 @@
             },
             {
               "type" : "field",
-              "value" : ["tcp", "srcPort"]
+              "value" : ["tcp", "dstPort"]
             }
           ],
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 28,
-            "column" : 10,
-            "source_fragment" : "hdr.tcp.srcPort"
+            "line" : 33,
+            "column" : 78,
+            "source_fragment" : "hdr.tcp.dstPort"
           }
         },
+        {
+          "op" : "modify_field_with_hash_based_offset",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.ecmp_index"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0000"
+            },
+            {
+              "type" : "calculation",
+              "value" : "calc"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.ecmp_num_members"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
+            "line" : 30,
+            "column" : 4,
+            "source_fragment" : "hash(meta.ecmp_index, ..."
+          }
+        }
+      ]
+    },
+    {
+      "name" : "fat_int41",
+      "id" : 19,
+      "runtime_data" : [],
+      "primitives" : [
         {
           "op" : "assign",
           "parameters" : [
@@ -1636,14 +1766,14 @@
             },
             {
               "type" : "field",
-              "value" : ["tcp", "dstPort"]
+              "value" : ["ipv4", "srcAddr"]
             }
           ],
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 29,
-            "column" : 10,
-            "source_fragment" : "hdr.tcp.dstPort"
+            "line" : 41,
+            "column" : 59,
+            "source_fragment" : "hdr.ipv4.srcAddr"
           }
         },
         {
@@ -1655,12 +1785,107 @@
             },
             {
               "type" : "field",
+              "value" : ["ipv4", "dstAddr"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
+            "line" : 42,
+            "column" : 10,
+            "source_fragment" : "hdr.ipv4.dstAddr"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_6"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ipv4", "protocol"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
+            "line" : 43,
+            "column" : 10,
+            "source_fragment" : "hdr.ipv4.protocol"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_7"]
+            },
+            {
+              "type" : "field",
+              "value" : ["ipv4", "identification"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
+            "line" : 44,
+            "column" : 10,
+            "source_fragment" : "hdr.ipv4.identification"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_8"]
+            },
+            {
+              "type" : "field",
+              "value" : ["tcp", "srcPort"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
+            "line" : 45,
+            "column" : 10,
+            "source_fragment" : "hdr.tcp.srcPort"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_9"]
+            },
+            {
+              "type" : "field",
+              "value" : ["tcp", "dstPort"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
+            "line" : 46,
+            "column" : 10,
+            "source_fragment" : "hdr.tcp.dstPort"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_10"]
+            },
+            {
+              "type" : "field",
               "value" : ["ipv4", "ttl"]
             }
           ],
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 30,
+            "line" : 47,
             "column" : 10,
             "source_fragment" : "hdr.ipv4.ttl"
           }
@@ -1678,7 +1903,7 @@
             },
             {
               "type" : "calculation",
-              "value" : "calc"
+              "value" : "calc_0"
             },
             {
               "type" : "hexstr",
@@ -1687,7 +1912,7 @@
           ],
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 24,
+            "line" : 41,
             "column" : 2,
             "source_fragment" : "hash(meta.global_hash1, HashAlgorithm.crc32, (bit<1>)0, {hdr.ipv4.srcAddr, ..."
           }
@@ -1696,31 +1921,31 @@
     },
     {
       "name" : "NoAction",
-      "id" : 17,
-      "runtime_data" : [],
-      "primitives" : []
-    },
-    {
-      "name" : "NoAction",
-      "id" : 18,
-      "runtime_data" : [],
-      "primitives" : []
-    },
-    {
-      "name" : "NoAction",
-      "id" : 19,
-      "runtime_data" : [],
-      "primitives" : []
-    },
-    {
-      "name" : "NoAction",
       "id" : 20,
       "runtime_data" : [],
       "primitives" : []
     },
     {
-      "name" : "MyEgress.set_param",
+      "name" : "NoAction",
       "id" : 21,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "NoAction",
+      "id" : 22,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "NoAction",
+      "id" : 23,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "MyEgress.set_param",
+      "id" : 24,
       "runtime_data" : [
         {
           "name" : "remainder_q",
@@ -1797,7 +2022,7 @@
     },
     {
       "name" : "MyEgress.set_q",
-      "id" : 22,
+      "id" : 25,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -1874,7 +2099,7 @@
     },
     {
       "name" : "MyEgress.set_hop",
-      "id" : 23,
+      "id" : 26,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -1982,7 +2207,7 @@
     },
     {
       "name" : "MyEgress.set_egress",
-      "id" : 24,
+      "id" : 27,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -2050,7 +2275,7 @@
     },
     {
       "name" : "MyEgress.index_q0",
-      "id" : 25,
+      "id" : 28,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -2127,7 +2352,7 @@
     },
     {
       "name" : "MyEgress.index_q1",
-      "id" : 26,
+      "id" : 29,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -2204,7 +2429,7 @@
     },
     {
       "name" : "MyEgress.index_q2",
-      "id" : 27,
+      "id" : 30,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -2281,7 +2506,7 @@
     },
     {
       "name" : "MyEgress.index_q3",
-      "id" : 28,
+      "id" : 31,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -2358,7 +2583,7 @@
     },
     {
       "name" : "MyEgress.index_q4",
-      "id" : 29,
+      "id" : 32,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -2435,7 +2660,7 @@
     },
     {
       "name" : "MyEgress.index_q5",
-      "id" : 30,
+      "id" : 33,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -2512,7 +2737,7 @@
     },
     {
       "name" : "MyEgress.index_q6",
-      "id" : 31,
+      "id" : 34,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -2589,7 +2814,7 @@
     },
     {
       "name" : "MyEgress.index_q7",
-      "id" : 32,
+      "id" : 35,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -2666,7 +2891,7 @@
     },
     {
       "name" : "MyEgress.index_q8",
-      "id" : 33,
+      "id" : 36,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -2743,7 +2968,7 @@
     },
     {
       "name" : "MyEgress.index_hop0",
-      "id" : 34,
+      "id" : 37,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -2851,7 +3076,7 @@
     },
     {
       "name" : "MyEgress.index_hop1",
-      "id" : 35,
+      "id" : 38,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -2959,7 +3184,7 @@
     },
     {
       "name" : "MyEgress.index_hop2",
-      "id" : 36,
+      "id" : 39,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -3067,7 +3292,7 @@
     },
     {
       "name" : "MyEgress.index_hop3",
-      "id" : 37,
+      "id" : 40,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -3175,7 +3400,7 @@
     },
     {
       "name" : "MyEgress.index_hop4",
-      "id" : 38,
+      "id" : 41,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -3283,7 +3508,7 @@
     },
     {
       "name" : "MyEgress.index_hop5",
-      "id" : 39,
+      "id" : 42,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -3391,7 +3616,7 @@
     },
     {
       "name" : "MyEgress.index_hop6",
-      "id" : 40,
+      "id" : 43,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -3499,7 +3724,7 @@
     },
     {
       "name" : "MyEgress.index_hop7",
-      "id" : 41,
+      "id" : 44,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -3607,7 +3832,7 @@
     },
     {
       "name" : "MyEgress.index_hop8",
-      "id" : 42,
+      "id" : 45,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -3715,7 +3940,7 @@
     },
     {
       "name" : "MyEgress.index_egress0",
-      "id" : 43,
+      "id" : 46,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -3783,7 +4008,7 @@
     },
     {
       "name" : "MyEgress.index_egress1",
-      "id" : 44,
+      "id" : 47,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -3851,7 +4076,7 @@
     },
     {
       "name" : "MyEgress.index_egress2",
-      "id" : 45,
+      "id" : 48,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -3919,7 +4144,7 @@
     },
     {
       "name" : "MyEgress.index_egress3",
-      "id" : 46,
+      "id" : 49,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -3987,7 +4212,7 @@
     },
     {
       "name" : "MyEgress.index_egress4",
-      "id" : 47,
+      "id" : 50,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -4055,7 +4280,7 @@
     },
     {
       "name" : "MyEgress.index_egress5",
-      "id" : 48,
+      "id" : 51,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -4123,7 +4348,7 @@
     },
     {
       "name" : "MyEgress.index_egress6",
-      "id" : 49,
+      "id" : 52,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -4191,7 +4416,7 @@
     },
     {
       "name" : "MyEgress.index_egress7",
-      "id" : 50,
+      "id" : 53,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -4259,7 +4484,7 @@
     },
     {
       "name" : "MyEgress.index_egress8",
-      "id" : 51,
+      "id" : 54,
       "runtime_data" : [],
       "primitives" : [
         {
@@ -4336,11 +4561,120 @@
         "column" : 8,
         "source_fragment" : "MyIngress"
       },
-      "init_table" : "MyIngress.tb_set_source",
+      "init_table" : "node_2",
       "tables" : [
         {
-          "name" : "MyIngress.tb_set_source",
+          "name" : "MyIngress.tb_ecmp_group",
           "id" : 0,
+          "source_info" : {
+            "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/ingress_table.p4",
+            "line" : 82,
+            "column" : 6,
+            "source_fragment" : "tb_ecmp_group"
+          },
+          "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "hdr.ipv4.dstAddr",
+              "target" : ["ipv4", "dstAddr"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [17, 4],
+          "actions" : ["MyIngress.set_ecmp_group", "NoAction"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "__HIT__" : "tbl_fat_int30",
+            "__MISS__" : "MyIngress.tb_set_source"
+          },
+          "default_entry" : {
+            "action_id" : 4,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        },
+        {
+          "name" : "tbl_fat_int30",
+          "id" : 1,
+          "source_info" : {
+            "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
+            "line" : 30,
+            "column" : 4,
+            "source_fragment" : "hash(meta.ecmp_index, ..."
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [18],
+          "actions" : ["fat_int30"],
+          "base_default_next" : "MyIngress.tb_ecmp_nhop",
+          "next_tables" : {
+            "fat_int30" : "MyIngress.tb_ecmp_nhop"
+          },
+          "default_entry" : {
+            "action_id" : 18,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        },
+        {
+          "name" : "MyIngress.tb_ecmp_nhop",
+          "id" : 2,
+          "source_info" : {
+            "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/ingress_table.p4",
+            "line" : 94,
+            "column" : 6,
+            "source_fragment" : "tb_ecmp_nhop"
+          },
+          "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "meta.ecmp_group_id",
+              "target" : ["scalars", "metadata.ecmp_group_id"],
+              "mask" : null
+            },
+            {
+              "match_type" : "exact",
+              "name" : "meta.ecmp_index",
+              "target" : ["scalars", "metadata.ecmp_index"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [7, 5],
+          "actions" : ["MyIngress.set_egress_port", "NoAction"],
+          "base_default_next" : "MyIngress.tb_set_source",
+          "next_tables" : {
+            "MyIngress.set_egress_port" : "MyIngress.tb_set_source",
+            "NoAction" : "MyIngress.tb_set_source"
+          },
+          "default_entry" : {
+            "action_id" : 5,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        },
+        {
+          "name" : "MyIngress.tb_set_source",
+          "id" : 3,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/ingress_table.p4",
             "line" : 1,
@@ -4361,12 +4695,12 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [5, 0],
+          "action_ids" : [6, 0],
           "actions" : ["MyIngress.int_set_source", "NoAction"],
-          "base_default_next" : "tbl_fat_int24",
+          "base_default_next" : "tbl_fat_int41",
           "next_tables" : {
-            "MyIngress.int_set_source" : "tbl_fat_int24",
-            "NoAction" : "tbl_fat_int24"
+            "MyIngress.int_set_source" : "tbl_fat_int41",
+            "NoAction" : "tbl_fat_int41"
           },
           "default_entry" : {
             "action_id" : 0,
@@ -4376,11 +4710,11 @@
           }
         },
         {
-          "name" : "tbl_fat_int24",
-          "id" : 1,
+          "name" : "tbl_fat_int41",
+          "id" : 4,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 24,
+            "line" : 41,
             "column" : 2,
             "source_fragment" : "hash(meta.global_hash1, HashAlgorithm.crc32, (bit<1>)0, {hdr.ipv4.srcAddr, ..."
           },
@@ -4391,14 +4725,14 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [16],
-          "actions" : ["fat_int24"],
+          "action_ids" : [19],
+          "actions" : ["fat_int41"],
           "base_default_next" : "MyIngress.tb_valid_space",
           "next_tables" : {
-            "fat_int24" : "MyIngress.tb_valid_space"
+            "fat_int41" : "MyIngress.tb_valid_space"
           },
           "default_entry" : {
-            "action_id" : 16,
+            "action_id" : 19,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
@@ -4406,7 +4740,7 @@
         },
         {
           "name" : "MyIngress.tb_valid_space",
-          "id" : 2,
+          "id" : 5,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/ingress_table.p4",
             "line" : 13,
@@ -4433,12 +4767,12 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [8, 1],
+          "action_ids" : [9, 1],
           "actions" : ["MyIngress.valid_space", "NoAction"],
-          "base_default_next" : "node_5",
+          "base_default_next" : "node_9",
           "next_tables" : {
-            "MyIngress.valid_space" : "node_5",
-            "NoAction" : "node_5"
+            "MyIngress.valid_space" : "node_9",
+            "NoAction" : "node_9"
           },
           "default_entry" : {
             "action_id" : 1,
@@ -4449,7 +4783,7 @@
         },
         {
           "name" : "MyIngress.tb_set_switch_id",
-          "id" : 3,
+          "id" : 6,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/ingress_table.p4",
             "line" : 26,
@@ -4470,7 +4804,7 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [7, 2],
+          "action_ids" : [8, 2],
           "actions" : ["MyIngress.set_switch_id", "NoAction"],
           "base_default_next" : "MyIngress.tb_set_space",
           "next_tables" : {
@@ -4486,7 +4820,7 @@
         },
         {
           "name" : "MyIngress.tb_set_space",
-          "id" : 4,
+          "id" : 7,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/ingress_table.p4",
             "line" : 38,
@@ -4507,12 +4841,12 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [9, 3],
+          "action_ids" : [10, 3],
           "actions" : ["MyIngress.set_space", "NoAction"],
-          "base_default_next" : "node_8",
+          "base_default_next" : "node_12",
           "next_tables" : {
-            "MyIngress.set_space" : "node_8",
-            "NoAction" : "node_8"
+            "MyIngress.set_space" : "node_12",
+            "NoAction" : "node_12"
           },
           "default_entry" : {
             "action_id" : 3,
@@ -4523,7 +4857,7 @@
         },
         {
           "name" : "MyIngress.tb_valid_space_q",
-          "id" : 5,
+          "id" : 8,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/ingress_table.p4",
             "line" : 49,
@@ -4537,14 +4871,14 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [13],
+          "action_ids" : [14],
           "actions" : ["MyIngress.valid_space_q"],
           "base_default_next" : "tbl_adding_space_q",
           "next_tables" : {
             "MyIngress.valid_space_q" : "tbl_adding_space_q"
           },
           "default_entry" : {
-            "action_id" : 13,
+            "action_id" : 14,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
@@ -4552,10 +4886,10 @@
         },
         {
           "name" : "tbl_adding_space_q",
-          "id" : 6,
+          "id" : 9,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 38,
+            "line" : 55,
             "column" : 4,
             "source_fragment" : "adding_space_q()"
           },
@@ -4566,14 +4900,14 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [10],
+          "action_ids" : [11],
           "actions" : ["MyIngress.adding_space_q"],
-          "base_default_next" : "node_11",
+          "base_default_next" : "node_15",
           "next_tables" : {
-            "MyIngress.adding_space_q" : "node_11"
+            "MyIngress.adding_space_q" : "node_15"
           },
           "default_entry" : {
-            "action_id" : 10,
+            "action_id" : 11,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
@@ -4581,7 +4915,7 @@
         },
         {
           "name" : "MyIngress.tb_valid_space_hop",
-          "id" : 7,
+          "id" : 10,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/ingress_table.p4",
             "line" : 56,
@@ -4595,14 +4929,14 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [14],
+          "action_ids" : [15],
           "actions" : ["MyIngress.valid_space_hop"],
           "base_default_next" : "tbl_adding_space_hop",
           "next_tables" : {
             "MyIngress.valid_space_hop" : "tbl_adding_space_hop"
           },
           "default_entry" : {
-            "action_id" : 14,
+            "action_id" : 15,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
@@ -4610,10 +4944,10 @@
         },
         {
           "name" : "tbl_adding_space_hop",
-          "id" : 8,
+          "id" : 11,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 42,
+            "line" : 59,
             "column" : 4,
             "source_fragment" : "adding_space_hop()"
           },
@@ -4624,14 +4958,14 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [11],
+          "action_ids" : [12],
           "actions" : ["MyIngress.adding_space_hop"],
-          "base_default_next" : "node_14",
+          "base_default_next" : "node_18",
           "next_tables" : {
-            "MyIngress.adding_space_hop" : "node_14"
+            "MyIngress.adding_space_hop" : "node_18"
           },
           "default_entry" : {
-            "action_id" : 11,
+            "action_id" : 12,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
@@ -4639,7 +4973,7 @@
         },
         {
           "name" : "MyIngress.tb_valid_space_egress",
-          "id" : 9,
+          "id" : 12,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/ingress_table.p4",
             "line" : 63,
@@ -4653,14 +4987,14 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [15],
+          "action_ids" : [16],
           "actions" : ["MyIngress.valid_space_egress"],
           "base_default_next" : "tbl_adding_space_egress",
           "next_tables" : {
             "MyIngress.valid_space_egress" : "tbl_adding_space_egress"
           },
           "default_entry" : {
-            "action_id" : 15,
+            "action_id" : 16,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
@@ -4668,10 +5002,10 @@
         },
         {
           "name" : "tbl_adding_space_egress",
-          "id" : 10,
+          "id" : 13,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 46,
+            "line" : 63,
             "column" : 4,
             "source_fragment" : "adding_space_egress()"
           },
@@ -4682,51 +5016,14 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [12],
+          "action_ids" : [13],
           "actions" : ["MyIngress.adding_space_egress"],
-          "base_default_next" : "MyIngress.tb_forward",
-          "next_tables" : {
-            "MyIngress.adding_space_egress" : "MyIngress.tb_forward"
-          },
-          "default_entry" : {
-            "action_id" : 12,
-            "action_const" : true,
-            "action_data" : [],
-            "action_entry_const" : true
-          }
-        },
-        {
-          "name" : "MyIngress.tb_forward",
-          "id" : 11,
-          "source_info" : {
-            "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/ingress_table.p4",
-            "line" : 70,
-            "column" : 6,
-            "source_fragment" : "tb_forward"
-          },
-          "key" : [
-            {
-              "match_type" : "exact",
-              "name" : "hdr.ipv4.dstAddr",
-              "target" : ["ipv4", "dstAddr"],
-              "mask" : null
-            }
-          ],
-          "match_type" : "exact",
-          "type" : "simple",
-          "max_size" : 1024,
-          "with_counters" : false,
-          "support_timeout" : false,
-          "direct_meters" : null,
-          "action_ids" : [6, 4],
-          "actions" : ["MyIngress.set_egress_port", "NoAction"],
           "base_default_next" : null,
           "next_tables" : {
-            "MyIngress.set_egress_port" : null,
-            "NoAction" : null
+            "MyIngress.adding_space_egress" : null
           },
           "default_entry" : {
-            "action_id" : 4,
+            "action_id" : 13,
             "action_const" : true,
             "action_data" : [],
             "action_entry_const" : true
@@ -4736,11 +5033,34 @@
       "action_profiles" : [],
       "conditionals" : [
         {
-          "name" : "node_5",
+          "name" : "node_2",
           "id" : 0,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 33,
+            "line" : 23,
+            "column" : 6,
+            "source_fragment" : "hdr.ipv4.isValid()"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "d2b",
+              "left" : null,
+              "right" : {
+                "type" : "field",
+                "value" : ["ipv4", "$valid$"]
+              }
+            }
+          },
+          "true_next" : "MyIngress.tb_ecmp_group",
+          "false_next" : "MyIngress.tb_set_source"
+        },
+        {
+          "name" : "node_9",
+          "id" : 1,
+          "source_info" : {
+            "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
+            "line" : 50,
             "column" : 6,
             "source_fragment" : "hdr.fat_int_space.isValid()"
           },
@@ -4755,15 +5075,15 @@
               }
             }
           },
-          "true_next" : "MyIngress.tb_set_switch_id",
-          "false_next" : "MyIngress.tb_forward"
+          "false_next" : null,
+          "true_next" : "MyIngress.tb_set_switch_id"
         },
         {
-          "name" : "node_8",
-          "id" : 1,
+          "name" : "node_12",
+          "id" : 2,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 36,
+            "line" : 53,
             "column" : 7,
             "source_fragment" : "meta.sampling_space_q != (hdr.fat_int_space.queue_space)"
           },
@@ -4782,14 +5102,14 @@
             }
           },
           "true_next" : "MyIngress.tb_valid_space_q",
-          "false_next" : "node_11"
+          "false_next" : "node_15"
         },
         {
-          "name" : "node_11",
-          "id" : 2,
+          "name" : "node_15",
+          "id" : 3,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 40,
+            "line" : 57,
             "column" : 7,
             "source_fragment" : "meta.sampling_space_hop != (hdr.fat_int_space.hop_space)"
           },
@@ -4808,14 +5128,14 @@
             }
           },
           "true_next" : "MyIngress.tb_valid_space_hop",
-          "false_next" : "node_14"
+          "false_next" : "node_18"
         },
         {
-          "name" : "node_14",
-          "id" : 3,
+          "name" : "node_18",
+          "id" : 4,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 44,
+            "line" : 61,
             "column" : 7,
             "source_fragment" : "meta.sampling_space_egress_tst != (hdr.fat_int_space.egress_space)"
           },
@@ -4833,8 +5153,8 @@
               }
             }
           },
-          "true_next" : "MyIngress.tb_valid_space_egress",
-          "false_next" : "MyIngress.tb_forward"
+          "false_next" : null,
+          "true_next" : "MyIngress.tb_valid_space_egress"
         }
       ]
     },
@@ -4843,15 +5163,15 @@
       "id" : 1,
       "source_info" : {
         "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-        "line" : 53,
+        "line" : 70,
         "column" : 8,
         "source_fragment" : "MyEgress"
       },
-      "init_table" : "node_20",
+      "init_table" : "node_23",
       "tables" : [
         {
           "name" : "MyEgress.tb_set_param",
-          "id" : 12,
+          "id" : 14,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/egress_table.p4",
             "line" : 1,
@@ -4890,7 +5210,7 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [21, 17],
+          "action_ids" : [24, 20],
           "actions" : ["MyEgress.set_param", "NoAction"],
           "base_default_next" : "MyEgress.tb_insert_q",
           "next_tables" : {
@@ -4898,7 +5218,7 @@
             "NoAction" : "MyEgress.tb_insert_q"
           },
           "default_entry" : {
-            "action_id" : 17,
+            "action_id" : 20,
             "action_const" : false,
             "action_data" : [],
             "action_entry_const" : false
@@ -4906,7 +5226,7 @@
         },
         {
           "name" : "MyEgress.tb_insert_q",
-          "id" : 13,
+          "id" : 15,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/egress_table.p4",
             "line" : 15,
@@ -4951,7 +5271,7 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [22, 25, 26, 27, 28, 29, 30, 31, 32, 33, 18],
+          "action_ids" : [25, 28, 29, 30, 31, 32, 33, 34, 35, 36, 21],
           "actions" : ["MyEgress.set_q", "MyEgress.index_q0", "MyEgress.index_q1", "MyEgress.index_q2", "MyEgress.index_q3", "MyEgress.index_q4", "MyEgress.index_q5", "MyEgress.index_q6", "MyEgress.index_q7", "MyEgress.index_q8", "NoAction"],
           "base_default_next" : "MyEgress.tb_insert_hop",
           "next_tables" : {
@@ -4968,7 +5288,7 @@
             "NoAction" : "MyEgress.tb_insert_hop"
           },
           "default_entry" : {
-            "action_id" : 18,
+            "action_id" : 21,
             "action_const" : false,
             "action_data" : [],
             "action_entry_const" : false
@@ -4976,7 +5296,7 @@
         },
         {
           "name" : "MyEgress.tb_insert_hop",
-          "id" : 14,
+          "id" : 16,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/egress_table.p4",
             "line" : 39,
@@ -5021,7 +5341,7 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [23, 34, 35, 36, 37, 38, 39, 40, 41, 42, 19],
+          "action_ids" : [26, 37, 38, 39, 40, 41, 42, 43, 44, 45, 22],
           "actions" : ["MyEgress.set_hop", "MyEgress.index_hop0", "MyEgress.index_hop1", "MyEgress.index_hop2", "MyEgress.index_hop3", "MyEgress.index_hop4", "MyEgress.index_hop5", "MyEgress.index_hop6", "MyEgress.index_hop7", "MyEgress.index_hop8", "NoAction"],
           "base_default_next" : "MyEgress.tb_insert_egress",
           "next_tables" : {
@@ -5038,7 +5358,7 @@
             "NoAction" : "MyEgress.tb_insert_egress"
           },
           "default_entry" : {
-            "action_id" : 19,
+            "action_id" : 22,
             "action_const" : false,
             "action_data" : [],
             "action_entry_const" : false
@@ -5046,7 +5366,7 @@
         },
         {
           "name" : "MyEgress.tb_insert_egress",
-          "id" : 15,
+          "id" : 17,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/include/egress_table.p4",
             "line" : 63,
@@ -5091,7 +5411,7 @@
           "with_counters" : false,
           "support_timeout" : false,
           "direct_meters" : null,
-          "action_ids" : [24, 43, 44, 45, 46, 47, 48, 49, 50, 51, 20],
+          "action_ids" : [27, 46, 47, 48, 49, 50, 51, 52, 53, 54, 23],
           "actions" : ["MyEgress.set_egress", "MyEgress.index_egress0", "MyEgress.index_egress1", "MyEgress.index_egress2", "MyEgress.index_egress3", "MyEgress.index_egress4", "MyEgress.index_egress5", "MyEgress.index_egress6", "MyEgress.index_egress7", "MyEgress.index_egress8", "NoAction"],
           "base_default_next" : null,
           "next_tables" : {
@@ -5108,7 +5428,7 @@
             "NoAction" : null
           },
           "default_entry" : {
-            "action_id" : 20,
+            "action_id" : 23,
             "action_const" : false,
             "action_data" : [],
             "action_entry_const" : false
@@ -5118,11 +5438,11 @@
       "action_profiles" : [],
       "conditionals" : [
         {
-          "name" : "node_20",
-          "id" : 4,
+          "name" : "node_23",
+          "id" : 5,
           "source_info" : {
             "filename" : "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4",
-            "line" : 61,
+            "line" : 78,
             "column" : 6,
             "source_fragment" : "hdr.fat_int_space.isValid()"
           },

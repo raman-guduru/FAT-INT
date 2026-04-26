@@ -21,488 +21,1304 @@ action:              int_set_source
 runtime data:        
 Entry has been added with handle 0
 
-Setting routing tables...
-Adding entry to exact match table tb_forward
+Setting ECMP routing tables...
+Adding entry to exact match table tb_ecmp_group
 match key:           EXACT-0a:00:07:01
+action:              set_ecmp_group
+runtime data:        00:01	00:01
+Entry has been added with handle 0
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:01	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:03
 Entry has been added with handle 0
 
-Adding entry to exact match table tb_forward
+Adding entry to exact match table tb_ecmp_group
 match key:           EXACT-0a:00:07:02
+action:              set_ecmp_group
+runtime data:        00:02	00:01
+Entry has been added with handle 1
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:02	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:04
 Entry has been added with handle 1
 
-Adding entry to exact match table tb_forward
+Adding entry to exact match table tb_ecmp_group
 match key:           EXACT-0a:00:08:03
-action:              set_egress_port
-runtime data:        00:02
+action:              set_ecmp_group
+runtime data:        00:03	00:02
 Entry has been added with handle 2
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:08:04
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 2
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:01
 action:              set_egress_port
 runtime data:        00:02
 Entry has been added with handle 3
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:05
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:08:04
+action:              set_ecmp_group
+runtime data:        00:04	00:02
+Entry has been added with handle 3
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:01
 Entry has been added with handle 4
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:06
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:01
 action:              set_egress_port
-runtime data:        00:01
+runtime data:        00:02
 Entry has been added with handle 5
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:07
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:05
+action:              set_ecmp_group
+runtime data:        00:05	00:02
+Entry has been added with handle 4
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:01
 Entry has been added with handle 6
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:08
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:01
 action:              set_egress_port
-runtime data:        00:01
+runtime data:        00:02
 Entry has been added with handle 7
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:07:01
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:06
+action:              set_ecmp_group
+runtime data:        00:06	00:02
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:01
+Entry has been added with handle 8
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 9
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:07
+action:              set_ecmp_group
+runtime data:        00:07	00:02
+Entry has been added with handle 6
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 10
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 11
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:08
+action:              set_ecmp_group
+runtime data:        00:08	00:02
+Entry has been added with handle 7
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 12
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 13
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:08:03
+action:              set_ecmp_group
+runtime data:        00:01	00:01
 Entry has been added with handle 0
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:07:02
-action:              set_egress_port
-runtime data:        00:01
-Entry has been added with handle 1
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:08:03
-action:              set_egress_port
-runtime data:        00:03
-Entry has been added with handle 2
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:08:04
-action:              set_egress_port
-runtime data:        00:04
-Entry has been added with handle 3
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:05
-action:              set_egress_port
-runtime data:        00:02
-Entry has been added with handle 4
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:06
-action:              set_egress_port
-runtime data:        00:02
-Entry has been added with handle 5
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:07
-action:              set_egress_port
-runtime data:        00:02
-Entry has been added with handle 6
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:08
-action:              set_egress_port
-runtime data:        00:02
-Entry has been added with handle 7
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:07:01
-action:              set_egress_port
-runtime data:        00:01
-Entry has been added with handle 0
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:07:02
-action:              set_egress_port
-runtime data:        00:01
-Entry has been added with handle 1
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:08:03
-action:              set_egress_port
-runtime data:        00:02
-Entry has been added with handle 2
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:08:04
-action:              set_egress_port
-runtime data:        00:02
-Entry has been added with handle 3
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:05
-action:              set_egress_port
-runtime data:        00:03
-Entry has been added with handle 4
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:06
-action:              set_egress_port
-runtime data:        00:04
-Entry has been added with handle 5
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:07
-action:              set_egress_port
-runtime data:        00:02
-Entry has been added with handle 6
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:08
-action:              set_egress_port
-runtime data:        00:02
-Entry has been added with handle 7
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:07:01
-action:              set_egress_port
-runtime data:        00:02
-Entry has been added with handle 0
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:07:02
-action:              set_egress_port
-runtime data:        00:02
-Entry has been added with handle 1
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:08:03
-action:              set_egress_port
-runtime data:        00:01
-Entry has been added with handle 2
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:08:04
-action:              set_egress_port
-runtime data:        00:01
-Entry has been added with handle 3
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:05
-action:              set_egress_port
-runtime data:        00:01
-Entry has been added with handle 4
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:06
-action:              set_egress_port
-runtime data:        00:01
-Entry has been added with handle 5
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:07
-action:              set_egress_port
-runtime data:        00:03
-Entry has been added with handle 6
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:08
-action:              set_egress_port
-runtime data:        00:04
-Entry has been added with handle 7
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:07:01
-action:              set_egress_port
-runtime data:        00:01
-Entry has been added with handle 0
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:07:02
-action:              set_egress_port
-runtime data:        00:01
-Entry has been added with handle 1
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:08:03
-action:              set_egress_port
-runtime data:        00:02
-Entry has been added with handle 2
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:08:04
-action:              set_egress_port
-runtime data:        00:02
-Entry has been added with handle 3
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:05
-action:              set_egress_port
-runtime data:        00:03
-Entry has been added with handle 4
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:06
-action:              set_egress_port
-runtime data:        00:03
-Entry has been added with handle 5
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:07
-action:              set_egress_port
-runtime data:        00:03
-Entry has been added with handle 6
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:08
-action:              set_egress_port
-runtime data:        00:03
-Entry has been added with handle 7
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:07:01
-action:              set_egress_port
-runtime data:        00:01
-Entry has been added with handle 0
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:07:02
-action:              set_egress_port
-runtime data:        00:01
-Entry has been added with handle 1
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:08:03
-action:              set_egress_port
-runtime data:        00:02
-Entry has been added with handle 2
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:08:04
-action:              set_egress_port
-runtime data:        00:02
-Entry has been added with handle 3
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:05
-action:              set_egress_port
-runtime data:        00:04
-Entry has been added with handle 4
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:06
-action:              set_egress_port
-runtime data:        00:04
-Entry has been added with handle 5
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:07
-action:              set_egress_port
-runtime data:        00:04
-Entry has been added with handle 6
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:08
-action:              set_egress_port
-runtime data:        00:04
-Entry has been added with handle 7
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:07:01
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:01	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:03
 Entry has been added with handle 0
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:07:02
-action:              set_egress_port
-runtime data:        00:03
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:08:04
+action:              set_ecmp_group
+runtime data:        00:02	00:01
 Entry has been added with handle 1
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:08:03
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:02	EXACT-00:00
 action:              set_egress_port
-runtime data:        00:03
+runtime data:        00:04
+Entry has been added with handle 1
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:07:01
+action:              set_ecmp_group
+runtime data:        00:03	00:02
 Entry has been added with handle 2
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:08:04
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:00
 action:              set_egress_port
-runtime data:        00:03
+runtime data:        00:01
+Entry has been added with handle 2
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
 Entry has been added with handle 3
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:05
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:07:02
+action:              set_ecmp_group
+runtime data:        00:04	00:02
+Entry has been added with handle 3
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:01
 Entry has been added with handle 4
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:06
-action:              set_egress_port
-runtime data:        00:01
-Entry has been added with handle 5
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:07
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:01
 action:              set_egress_port
 runtime data:        00:02
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:05
+action:              set_ecmp_group
+runtime data:        00:05	00:02
+Entry has been added with handle 4
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
 Entry has been added with handle 6
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:08
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:01
 action:              set_egress_port
 runtime data:        00:02
 Entry has been added with handle 7
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:07:01
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:06
+action:              set_ecmp_group
+runtime data:        00:06	00:02
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:00
 action:              set_egress_port
-runtime data:        00:04
+runtime data:        00:01
+Entry has been added with handle 8
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 9
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:07
+action:              set_ecmp_group
+runtime data:        00:07	00:02
+Entry has been added with handle 6
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 10
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 11
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:08
+action:              set_ecmp_group
+runtime data:        00:08	00:02
+Entry has been added with handle 7
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 12
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 13
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:05
+action:              set_ecmp_group
+runtime data:        00:01	00:01
 Entry has been added with handle 0
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:07:02
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:01	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 0
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:06
+action:              set_ecmp_group
+runtime data:        00:02	00:01
+Entry has been added with handle 1
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:02	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:04
 Entry has been added with handle 1
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:08:03
-action:              set_egress_port
-runtime data:        00:04
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:07:01
+action:              set_ecmp_group
+runtime data:        00:03	00:02
 Entry has been added with handle 2
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:08:04
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:00
 action:              set_egress_port
-runtime data:        00:04
+runtime data:        00:01
+Entry has been added with handle 2
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
 Entry has been added with handle 3
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:05
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:07:02
+action:              set_ecmp_group
+runtime data:        00:04	00:02
+Entry has been added with handle 3
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:01
 Entry has been added with handle 4
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:06
-action:              set_egress_port
-runtime data:        00:01
-Entry has been added with handle 5
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:07
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:01
 action:              set_egress_port
 runtime data:        00:02
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:08:03
+action:              set_ecmp_group
+runtime data:        00:05	00:02
+Entry has been added with handle 4
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
 Entry has been added with handle 6
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:08
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:01
 action:              set_egress_port
 runtime data:        00:02
 Entry has been added with handle 7
 
-Adding entry to exact match table tb_forward
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:08:04
+action:              set_ecmp_group
+runtime data:        00:06	00:02
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 8
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 9
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:07
+action:              set_ecmp_group
+runtime data:        00:07	00:02
+Entry has been added with handle 6
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 10
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 11
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:08
+action:              set_ecmp_group
+runtime data:        00:08	00:02
+Entry has been added with handle 7
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 12
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 13
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:07
+action:              set_ecmp_group
+runtime data:        00:01	00:01
+Entry has been added with handle 0
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:01	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 0
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:08
+action:              set_ecmp_group
+runtime data:        00:02	00:01
+Entry has been added with handle 1
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:02	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 1
+
+Adding entry to exact match table tb_ecmp_group
 match key:           EXACT-0a:00:07:01
+action:              set_ecmp_group
+runtime data:        00:03	00:02
+Entry has been added with handle 2
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 2
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 3
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:07:02
+action:              set_ecmp_group
+runtime data:        00:04	00:02
+Entry has been added with handle 3
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 4
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:08:03
+action:              set_ecmp_group
+runtime data:        00:05	00:02
+Entry has been added with handle 4
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 6
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 7
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:08:04
+action:              set_ecmp_group
+runtime data:        00:06	00:02
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 8
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 9
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:05
+action:              set_ecmp_group
+runtime data:        00:07	00:02
+Entry has been added with handle 6
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 10
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 11
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:06
+action:              set_ecmp_group
+runtime data:        00:08	00:02
+Entry has been added with handle 7
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 12
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 13
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:07:01
+action:              set_ecmp_group
+runtime data:        00:01	00:01
+Entry has been added with handle 0
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:01	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:01
 Entry has been added with handle 0
 
-Adding entry to exact match table tb_forward
+Adding entry to exact match table tb_ecmp_group
 match key:           EXACT-0a:00:07:02
+action:              set_ecmp_group
+runtime data:        00:02	00:01
+Entry has been added with handle 1
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:02	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:01
 Entry has been added with handle 1
 
-Adding entry to exact match table tb_forward
+Adding entry to exact match table tb_ecmp_group
 match key:           EXACT-0a:00:08:03
+action:              set_ecmp_group
+runtime data:        00:03	00:01
+Entry has been added with handle 2
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:02
 Entry has been added with handle 2
 
-Adding entry to exact match table tb_forward
+Adding entry to exact match table tb_ecmp_group
 match key:           EXACT-0a:00:08:04
+action:              set_ecmp_group
+runtime data:        00:04	00:01
+Entry has been added with handle 3
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:02
 Entry has been added with handle 3
 
-Adding entry to exact match table tb_forward
+Adding entry to exact match table tb_ecmp_group
 match key:           EXACT-0a:00:09:05
+action:              set_ecmp_group
+runtime data:        00:05	00:02
+Entry has been added with handle 4
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:03
 Entry has been added with handle 4
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:06
-action:              set_egress_port
-runtime data:        00:03
-Entry has been added with handle 5
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:07
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:01
 action:              set_egress_port
 runtime data:        00:04
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:06
+action:              set_ecmp_group
+runtime data:        00:06	00:02
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
 Entry has been added with handle 6
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:08
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:01
 action:              set_egress_port
 runtime data:        00:04
 Entry has been added with handle 7
 
-Adding entry to exact match table tb_forward
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:07
+action:              set_ecmp_group
+runtime data:        00:07	00:02
+Entry has been added with handle 6
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 8
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 9
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:08
+action:              set_ecmp_group
+runtime data:        00:08	00:02
+Entry has been added with handle 7
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 10
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 11
+
+Adding entry to exact match table tb_ecmp_group
 match key:           EXACT-0a:00:07:01
+action:              set_ecmp_group
+runtime data:        00:01	00:01
+Entry has been added with handle 0
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:01	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:01
 Entry has been added with handle 0
 
-Adding entry to exact match table tb_forward
+Adding entry to exact match table tb_ecmp_group
 match key:           EXACT-0a:00:07:02
+action:              set_ecmp_group
+runtime data:        00:02	00:01
+Entry has been added with handle 1
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:02	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:01
 Entry has been added with handle 1
 
-Adding entry to exact match table tb_forward
+Adding entry to exact match table tb_ecmp_group
 match key:           EXACT-0a:00:08:03
+action:              set_ecmp_group
+runtime data:        00:03	00:01
+Entry has been added with handle 2
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:02
 Entry has been added with handle 2
 
-Adding entry to exact match table tb_forward
+Adding entry to exact match table tb_ecmp_group
 match key:           EXACT-0a:00:08:04
+action:              set_ecmp_group
+runtime data:        00:04	00:01
+Entry has been added with handle 3
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:02
 Entry has been added with handle 3
 
-Adding entry to exact match table tb_forward
+Adding entry to exact match table tb_ecmp_group
 match key:           EXACT-0a:00:09:05
+action:              set_ecmp_group
+runtime data:        00:05	00:02
+Entry has been added with handle 4
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:00
 action:              set_egress_port
 runtime data:        00:03
 Entry has been added with handle 4
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:09:06
-action:              set_egress_port
-runtime data:        00:03
-Entry has been added with handle 5
-
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:07
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:01
 action:              set_egress_port
 runtime data:        00:04
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:06
+action:              set_ecmp_group
+runtime data:        00:06	00:02
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
 Entry has been added with handle 6
 
-Adding entry to exact match table tb_forward
-match key:           EXACT-0a:00:0a:08
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:01
 action:              set_egress_port
 runtime data:        00:04
 Entry has been added with handle 7
 
-[OK] Routing rules installed correctly.
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:07
+action:              set_ecmp_group
+runtime data:        00:07	00:02
+Entry has been added with handle 6
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 8
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 9
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:08
+action:              set_ecmp_group
+runtime data:        00:08	00:02
+Entry has been added with handle 7
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 10
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 11
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:07:01
+action:              set_ecmp_group
+runtime data:        00:01	00:02
+Entry has been added with handle 0
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:01	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 0
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:01	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 1
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:07:02
+action:              set_ecmp_group
+runtime data:        00:02	00:02
+Entry has been added with handle 1
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:02	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 2
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:02	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 3
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:08:03
+action:              set_ecmp_group
+runtime data:        00:03	00:02
+Entry has been added with handle 2
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 4
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:08:04
+action:              set_ecmp_group
+runtime data:        00:04	00:02
+Entry has been added with handle 3
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 6
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 7
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:05
+action:              set_ecmp_group
+runtime data:        00:05	00:01
+Entry has been added with handle 4
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 8
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:06
+action:              set_ecmp_group
+runtime data:        00:06	00:01
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 9
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:07
+action:              set_ecmp_group
+runtime data:        00:07	00:01
+Entry has been added with handle 6
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 10
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:08
+action:              set_ecmp_group
+runtime data:        00:08	00:01
+Entry has been added with handle 7
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 11
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:07:01
+action:              set_ecmp_group
+runtime data:        00:01	00:02
+Entry has been added with handle 0
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:01	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 0
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:01	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 1
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:07:02
+action:              set_ecmp_group
+runtime data:        00:02	00:02
+Entry has been added with handle 1
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:02	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 2
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:02	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 3
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:08:03
+action:              set_ecmp_group
+runtime data:        00:03	00:02
+Entry has been added with handle 2
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 4
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:08:04
+action:              set_ecmp_group
+runtime data:        00:04	00:02
+Entry has been added with handle 3
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 6
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 7
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:05
+action:              set_ecmp_group
+runtime data:        00:05	00:01
+Entry has been added with handle 4
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 8
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:06
+action:              set_ecmp_group
+runtime data:        00:06	00:01
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 9
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:07
+action:              set_ecmp_group
+runtime data:        00:07	00:01
+Entry has been added with handle 6
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 10
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:08
+action:              set_ecmp_group
+runtime data:        00:08	00:01
+Entry has been added with handle 7
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 11
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:07:01
+action:              set_ecmp_group
+runtime data:        00:01	00:02
+Entry has been added with handle 0
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:01	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 0
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:01	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 1
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:07:02
+action:              set_ecmp_group
+runtime data:        00:02	00:02
+Entry has been added with handle 1
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:02	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 2
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:02	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 3
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:08:03
+action:              set_ecmp_group
+runtime data:        00:03	00:02
+Entry has been added with handle 2
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 4
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:08:04
+action:              set_ecmp_group
+runtime data:        00:04	00:02
+Entry has been added with handle 3
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 6
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 7
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:05
+action:              set_ecmp_group
+runtime data:        00:05	00:02
+Entry has been added with handle 4
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 8
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 9
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:06
+action:              set_ecmp_group
+runtime data:        00:06	00:02
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 10
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 11
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:07
+action:              set_ecmp_group
+runtime data:        00:07	00:02
+Entry has been added with handle 6
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 12
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 13
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:08
+action:              set_ecmp_group
+runtime data:        00:08	00:02
+Entry has been added with handle 7
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 14
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 15
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:07:01
+action:              set_ecmp_group
+runtime data:        00:01	00:02
+Entry has been added with handle 0
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:01	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 0
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:01	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 1
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:07:02
+action:              set_ecmp_group
+runtime data:        00:02	00:02
+Entry has been added with handle 1
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:02	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 2
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:02	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 3
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:08:03
+action:              set_ecmp_group
+runtime data:        00:03	00:02
+Entry has been added with handle 2
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 4
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:03	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:08:04
+action:              set_ecmp_group
+runtime data:        00:04	00:02
+Entry has been added with handle 3
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:01
+Entry has been added with handle 6
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:04	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:02
+Entry has been added with handle 7
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:05
+action:              set_ecmp_group
+runtime data:        00:05	00:02
+Entry has been added with handle 4
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 8
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:05	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 9
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:09:06
+action:              set_ecmp_group
+runtime data:        00:06	00:02
+Entry has been added with handle 5
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 10
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:06	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 11
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:07
+action:              set_ecmp_group
+runtime data:        00:07	00:02
+Entry has been added with handle 6
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 12
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:07	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 13
+
+Adding entry to exact match table tb_ecmp_group
+match key:           EXACT-0a:00:0a:08
+action:              set_ecmp_group
+runtime data:        00:08	00:02
+Entry has been added with handle 7
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:00
+action:              set_egress_port
+runtime data:        00:03
+Entry has been added with handle 14
+
+Adding entry to exact match table tb_ecmp_nhop
+match key:           EXACT-00:08	EXACT-00:01
+action:              set_egress_port
+runtime data:        00:04
+Entry has been added with handle 15
+
+[OK] ECMP routing tables populated across all switches.
 Setting switch IDs...
 Adding entry to exact match table tb_set_switch_id
 match key:           EXACT-04
@@ -1840,4 +2656,4 @@ action:              set_egress
 runtime data:        
 Entry has been added with handle 4
 
-Pure INT controller configuration complete!
+ECMP INT controller configuration complete!

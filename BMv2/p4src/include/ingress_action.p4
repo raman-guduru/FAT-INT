@@ -53,3 +53,8 @@ action valid_space_egress(){
 	hdr.fat_int_egress[0].setValid();
 	meta.count_egress = 1;
 }
+
+action set_ecmp_group(bit<16> group_id, bit<16> num_members) {
+    meta.ecmp_group_id = group_id;
+    meta.ecmp_num_members = num_members;
+}

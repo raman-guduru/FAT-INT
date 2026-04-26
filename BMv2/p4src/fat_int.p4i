@@ -990,6 +990,11 @@ struct metadata {
   bit<1> count_q;
   bit<1> count_hop;
   bit<1> count_egress;
+
+  bit<16> ecmp_group_id;
+  bit<16> ecmp_num_members;
+  bit<16> ecmp_hash;
+  bit<16> ecmp_index;
 }
 # 9 "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4" 2
 # 1 "/home/p4/FAT_INT/BMv2/p4src/include/parser.p4" 1
@@ -1141,6 +1146,11 @@ action valid_space_egress(){
  hdr.fat_int_egress[0].setValid();
  meta.count_egress = 1;
 }
+
+action set_ecmp_group(bit<16> group_id, bit<16> num_members) {
+    meta.ecmp_group_id = group_id;
+    meta.ecmp_num_members = num_members;
+}
 # 20 "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4" 2
 # 1 "/home/p4/FAT_INT/BMv2/p4src/include/ingress_table.p4" 1
 table tb_set_source {
@@ -1222,9 +1232,51 @@ table tb_forward {
  }
  const default_action = NoAction();
 }
+
+// Table A: Maps a Destination IP to an ECMP Group
+table tb_ecmp_group {
+    key = {
+        hdr.ipv4.dstAddr : exact;
+    }
+    actions = {
+        set_ecmp_group;
+        NoAction;
+    }
+    size = 1024;
+}
+
+// Table B: Maps the (Group ID + Calculated Hash Index) to a physical port
+table tb_ecmp_nhop {
+    key = {
+        meta.ecmp_group_id : exact;
+        meta.ecmp_index : exact;
+    }
+    actions = {
+        set_egress_port;
+        NoAction;
+    }
+    size = 1024;
+}
 # 21 "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4" 2
 
  apply {
+  if (hdr.ipv4.isValid()) {
+   // Step 1: Find the ECMP group for the Destination IP
+   if (tb_ecmp_group.apply().hit) {
+
+    // Step 2 & 3 Combined: Calculate hash and natively apply modulo
+    // The 'max' parameter (meta.ecmp_num_members) forces the output 
+    // to automatically be bounded between base (0) and max-1.
+    hash(meta.ecmp_index,
+     HashAlgorithm.crc16,
+     (bit<16>)0, // Base
+     {hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.ipv4.protocol, hdr.tcp.srcPort, hdr.tcp.dstPort},
+     meta.ecmp_num_members); // Max
+
+    // Step 4: Apply the second table to get the physical port
+    tb_ecmp_nhop.apply();
+   }
+  }
   tb_set_source.apply();
   hash(meta.global_hash1, HashAlgorithm.crc32, (bit<1>)0, {hdr.ipv4.srcAddr,
           hdr.ipv4.dstAddr,
@@ -1251,7 +1303,7 @@ table tb_forward {
     adding_space_egress();
    }
   }
-  tb_forward.apply();
+  // tb_forward.apply();
  }
 }
 
@@ -1311,7 +1363,7 @@ action index_egress5(){ hdr.fat_int_egress[5].egress_timestamp = (bit<32>)standa
 action index_egress6(){ hdr.fat_int_egress[6].egress_timestamp = (bit<32>)standard_metadata.egress_global_timestamp; hdr.fat_int_egress[6].switch_id = (bit<8>) meta.switch_id;}
 action index_egress7(){ hdr.fat_int_egress[7].egress_timestamp = (bit<32>)standard_metadata.egress_global_timestamp; hdr.fat_int_egress[7].switch_id = (bit<8>) meta.switch_id;}
 action index_egress8(){ hdr.fat_int_egress[8].egress_timestamp = (bit<32>)standard_metadata.egress_global_timestamp; hdr.fat_int_egress[8].switch_id = (bit<8>) meta.switch_id;}
-# 58 "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4" 2
+# 75 "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4" 2
 # 1 "/home/p4/FAT_INT/BMv2/p4src/include/egress_table.p4" 1
 table tb_set_param {
  key={
@@ -1398,7 +1450,7 @@ table tb_insert_egress{
  }
  default_action=NoAction();
 }
-# 59 "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4" 2
+# 76 "/home/p4/FAT_INT/BMv2/p4src/fat_int.p4" 2
 
  apply {
   if (hdr.fat_int_space.isValid()){

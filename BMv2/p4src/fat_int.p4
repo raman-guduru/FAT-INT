@@ -20,6 +20,23 @@ control MyIngress(inout headers hdr,
 	#include "include/ingress_table.p4"
 
 	apply {
+		if (hdr.ipv4.isValid()) {
+			// Step 1: Find the ECMP group for the Destination IP
+			if (tb_ecmp_group.apply().hit) {
+				
+				// Step 2 & 3 Combined: Calculate hash and natively apply modulo
+				// The 'max' parameter (meta.ecmp_num_members) forces the output 
+				// to automatically be bounded between base (0) and max-1.
+				hash(meta.ecmp_index,
+					HashAlgorithm.crc16,
+					(bit<16>)0, // Base
+					{hdr.ipv4.srcAddr, hdr.ipv4.dstAddr, hdr.ipv4.protocol, hdr.tcp.srcPort, hdr.tcp.dstPort},
+					meta.ecmp_num_members); // Max
+
+				// Step 4: Apply the second table to get the physical port
+				tb_ecmp_nhop.apply();
+			}
+		}
 		tb_set_source.apply();
 		hash(meta.global_hash1, HashAlgorithm.crc32, (bit<1>)0, {hdr.ipv4.srcAddr,
 									 hdr.ipv4.dstAddr,
@@ -46,7 +63,7 @@ control MyIngress(inout headers hdr,
 				adding_space_egress();
 			}
 		}
-		tb_forward.apply();
+		// tb_forward.apply();
 	}
 }
 

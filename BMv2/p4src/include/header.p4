@@ -99,5 +99,10 @@ struct metadata {
 		bit<1> count_q;
 		bit<1> count_hop;
 		bit<1> count_egress;
+
+		bit<16> ecmp_group_id;
+		bit<16> ecmp_num_members;
+		bit<16> ecmp_hash;
+		bit<16> ecmp_index;
 }
 

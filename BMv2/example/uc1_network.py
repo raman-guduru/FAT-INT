@@ -102,7 +102,7 @@ def main():
 
     # 1. Start receiver scripts first so they are listening
     for recv in receivers:
-        recv_cmd = f'python3 {args.file_path}/FAT_INT/BMv2/example/packets/uc1_receive.py --file_path {args.file_path} --receiver {recv}'
+        recv_cmd = f'python3 {args.file_path}/FAT_INT/BMv2/example/packets/uc1_receive.py --file_path {args.file_path} --receiver {recv} --duration 240'
         host_node = net.net.get(recv)
         process = Process(target=run_command_on_host, args=(host_node, recv_cmd))
         process.start()
@@ -116,7 +116,7 @@ def main():
     pcap_path = f"{args.file_path}/FAT_INT/hadoop_master_fixed.pcap"
 
     for sender in senders:
-        send_cmd = f'python3 {args.file_path}/FAT_INT/BMv2/example/packets/uc1_send.py --sender {sender} --size_csv /home/p4/FAT_INT/BMv2/flow_size.csv --arrival_csv /home/p4/FAT_INT/BMv2/syn_inter.csv --load 0.4 --num_flows 80'
+        send_cmd = f'python3 {args.file_path}/FAT_INT/BMv2/example/packets/uc1_send.py --sender {sender}  --size_csv /home/p4/FAT_INT/BMv2/flow_size.csv --arrival_csv /home/p4/FAT_INT/BMv2/syn_inter.csv --load 0.4 --duration 180'
         host_node = net.net.get(sender)
         
         # In Mininet, the interface name is typically 'hostname-eth0' (e.g., h1-eth0)

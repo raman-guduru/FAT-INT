@@ -71,8 +71,8 @@ def get_cutoff_frequency(times, values, eps_th, step_size_pct=0.01):
         return 0.001
 
     times, values = resample_uniform(times, values)
-    values = clip_outliers(values)
-    values = smooth_signal(values)
+    # values = clip_outliers(values)
+    # values = smooth_signal(values)
 
     dt = np.mean(np.diff(times))
     if dt <= 0:
@@ -89,6 +89,7 @@ def get_cutoff_frequency(times, values, eps_th, step_size_pct=0.01):
         return 0.001
 
     f_max = freqs[-1]
+    
     delta_f = max(f_max * step_size_pct, freqs[1])
     f_cutoff = f_max
 
@@ -123,11 +124,10 @@ def main(file_paths):
     thresholds = [1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
     item_data = {k: defaultdict(list) for k in item_mapping.keys()}
     
-    total_packets = 0
-    all_timestamps = []
+    node_timestamps = defaultdict(list)
     path_length = 0
 
-    # Aggregate data from all provided files
+    # Aggregate data from all provided files, mapping by specific switch_id
     for filepath in file_paths:
         with open(filepath, 'r') as f:
             for line in f:
@@ -137,54 +137,68 @@ def main(file_paths):
                     ts = pkt.get("timestamp")
                     if ts is None: continue
                     
-                    total_packets += 1
-                    all_timestamps.append(ts)
-                    
                     if path_length == 0 and 'queue_metadata' in pkt:
                         path_length = len(pkt['queue_metadata'])
                         
+                    seen_switches = set()
                     for item, meta_key in item_mapping.items():
                         if meta_key in pkt:
                             for entry in pkt[meta_key]:
-                                switch_id = entry.get("switch_id")
+                                sw = entry.get("switch_id")
                                 val = entry.get(item)
-                                if switch_id is not None and val is not None:
-                                    item_data[item][switch_id].append((ts, val))
+                                if sw is not None:
+                                    if val is not None:
+                                        item_data[item][sw].append((ts, val))
+                                    # Ensure we only log 1 packet arrival per switch per timestamp
+                                    if sw not in seen_switches:
+                                        node_timestamps[sw].append(ts)
+                                        seen_switches.add(sw)
                 except json.JSONDecodeError:
                     continue
 
-    # Global Calculations based on aggregated data
-    if len(all_timestamps) > 1:
-        duration = max(all_timestamps) - min(all_timestamps)
+    if not node_timestamps:
+        print("No valid switch data found.")
+        return
+
+    # Automatically find the Bottleneck Node (the switch that processed the most packets)
+    print([len(node_timestamps[k]) for k in range(1,11)])
+    target_sw = max(node_timestamps, key=lambda k: len(node_timestamps[k]))
+    timestamps = sorted(node_timestamps[target_sw])
+    
+    total_packets = len(timestamps)
+    
+    # Calculate Data Rate (Dr) specifically for the Target Node
+    if total_packets > 1:
+        duration = timestamps[-1] - timestamps[0]
         Dr = total_packets / duration if duration > 0 else 1.0
     else:
         Dr = 1.0
 
     N = path_length if path_length > 0 else 1
 
+    print(f"--- Profiling Single Node: Switch {target_sw} ---")
     print(f"Network Parameters Extracted: Dr = {Dr:.2f} pkts/s | N = {N} hops")
     print(f"{'Err Thresh':<10} | {'Samp Ratio %':<12} | {'S_i (Queue)':<12} | {'S_i (Hop)':<12} | {'S_i (Egress)':<12}")
     print("-" * 70)
 
     for eps in thresholds:
         cutoffs = {}
+        # Perform frequency analysis strictly on the Target Node's telemetry data
         for item in item_mapping.keys():
-            per_switch_cutoffs = []
-            for sw, data in item_data[item].items():
-                if len(data) < 32: continue
-                data.sort(key=lambda x: x[0])
-                vals = [d[1] for d in data]
-                if item == 'egress_ts':
-                    vals = [v - vals[0] for v in vals]
-                
-                f_c = get_cutoff_frequency([d[0] for d in data], vals, eps)
-                per_switch_cutoffs.append(f_c)
-
-            cutoffs[item] = np.mean(per_switch_cutoffs) if per_switch_cutoffs else 0.001
+            data = item_data[item].get(target_sw, [])
+            if len(data) < 32:
+                cutoffs[item] = 0.001
+                continue
+            
+            data.sort(key=lambda x: x[0])
+            vals = [d[1] for d in data]
+            
+            f_c = get_cutoff_frequency([d[0] for d in data], vals, eps, step_size_pct=0.01)
+            cutoffs[item] = f_c
 
         min_cutoff = max(min(cutoffs.values()), 1e-6)
         
-        # Sampling Calculations [cite: 385, 397]
+        # Sampling Calculations
         R_prime = (2 * min_cutoff * N) / Dr
         sampling_ratio = min(R_prime, 1.0)
         r_multiplier = max(1, math.ceil(R_prime))
@@ -194,6 +208,6 @@ def main(file_paths):
         print(f"{str(eps)+'%':<10} | {sampling_ratio * 100:<12.2f} | {spaces['queue_occ']:<12} | {spaces['hop_lat']:<12} | {spaces['egress_ts']:<12}")
 
 if __name__ == "__main__":
-    # Add all relevant trace files here
+    # You can now safely pass all log files; it will isolate the bottleneck node automatically.
     trace_files = ["BMv2/example/packets/result_h8.txt", "BMv2/example/packets/result_h5.txt", "BMv2/example/packets/result_h6.txt", "BMv2/example/packets/result_h7.txt"]
     main(trace_files)

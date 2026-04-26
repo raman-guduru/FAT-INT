@@ -77,3 +77,28 @@ table tb_forward {
 	}
 	const default_action = NoAction();
 }
+
+// Table A: Maps a Destination IP to an ECMP Group
+table tb_ecmp_group {
+    key = {
+        hdr.ipv4.dstAddr : exact;
+    }
+    actions = {
+        set_ecmp_group;
+        NoAction;
+    }
+    size = 1024;
+}
+
+// Table B: Maps the (Group ID + Calculated Hash Index) to a physical port
+table tb_ecmp_nhop {
+    key = {
+        meta.ecmp_group_id : exact;
+        meta.ecmp_index : exact;
+    }
+    actions = {
+        set_egress_port;
+        NoAction;
+    }
+    size = 1024;
+}
