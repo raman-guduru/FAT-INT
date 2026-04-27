@@ -19,6 +19,7 @@ def config_network(p4):
     
     # Link option
     linkops = dict(bw=10, delay='1ms', loss=0, use_htb=True)
+    edgelinks = dict(bw=10, delay='1ms', loss=0,use_htb=True)
 
     # Network general options
     net.setLogLevel('info')
@@ -58,14 +59,14 @@ def config_network(p4):
     net.addLink('a4', 'e4', **linkops)
 
     # 4. Edge to Hosts
-    net.addLink('e1', 'h1', **linkops)
-    net.addLink('e1', 'h2', **linkops)
-    net.addLink('e2', 'h3', **linkops)
-    net.addLink('e2', 'h4', **linkops)
-    net.addLink('e3', 'h5', **linkops)
-    net.addLink('e3', 'h6', **linkops)
-    net.addLink('e4', 'h7', **linkops)
-    net.addLink('e4', 'h8', **linkops)
+    net.addLink('e1', 'h1', **edgelinks)
+    net.addLink('e1', 'h2', **edgelinks)
+    net.addLink('e2', 'h3', **edgelinks)
+    net.addLink('e2', 'h4', **edgelinks)
+    net.addLink('e3', 'h5', **edgelinks)
+    net.addLink('e3', 'h6', **edgelinks)
+    net.addLink('e4', 'h7', **edgelinks)
+    net.addLink('e4', 'h8', **edgelinks)
         
     # Assignment strategy
     net.mixed()
@@ -89,9 +90,14 @@ def main():
     net = config_network(args.p4)
     net.startNetwork()
     
-    print("Waiting for inserting rules...")
-    input()
-    print("Insert rules complete!")
+    print("Initializing network...")
+    sleep(2)
+
+    print("Installing rules...")
+    os.system(f'python3 {args.file_path}/FAT_INT/BMv2/rule/uc1_INT_controller.py > sf.txt')
+
+    print("Rules installed successfully.")
+    sleep(1)
 
     
     
@@ -102,7 +108,7 @@ def main():
 
     # 1. Start receiver scripts first so they are listening
     for recv in receivers:
-        recv_cmd = f'python3 {args.file_path}/FAT_INT/BMv2/example/packets/uc1_receive.py --file_path {args.file_path} --receiver {recv} --duration 240'
+        recv_cmd = f'python3 {args.file_path}/FAT_INT/BMv2/example/packets/uc1_receive.py --file_path {args.file_path} --receiver {recv} --duration 360'
         host_node = net.net.get(recv)
         process = Process(target=run_command_on_host, args=(host_node, recv_cmd))
         process.start()
@@ -116,7 +122,8 @@ def main():
     pcap_path = f"{args.file_path}/FAT_INT/hadoop_master_fixed.pcap"
 
     for sender in senders:
-        send_cmd = f'python3 {args.file_path}/FAT_INT/BMv2/example/packets/uc1_send.py --sender {sender}  --size_csv /home/p4/FAT_INT/BMv2/flow_size.csv --arrival_csv /home/p4/FAT_INT/BMv2/syn_inter.csv --load 0.4 --duration 180'
+        # send_cmd = f'python3 {args.file_path}/FAT_INT/BMv2/example/packets/uc1_send.py --sender {sender}  --size_csv /home/p4/FAT_INT/BMv2/flow_size.csv --arrival_csv /home/p4/FAT_INT/BMv2/syn_inter.csv --load 0.4 --duration 180'
+        send_cmd = f'python3 {args.file_path}/FAT_INT/BMv2/example/packets/uc1_send.py --host {sender} --trace /home/p4/FAT_INT/flows.csv > sending_{sender}.txt'
         host_node = net.net.get(sender)
         
         # In Mininet, the interface name is typically 'hostname-eth0' (e.g., h1-eth0)
@@ -139,6 +146,8 @@ def main():
         process.start()
         processes.append(process)
     
+    print("Running...")
+
     for process in processes:
         process.join()
     
