@@ -31,3 +31,24 @@ Err Thresh | Samp Ratio % | S_i (Queue)  | S_i (Hop)    | S_i (Egress)
 7.0%       | 1.30         | 11           | 4            | 1           
 8.0%       | 1.30         | 9            | 3            | 1           
 
+
+
+=========================================================
+ FAT-INT DATASET SEARCH
+ Searching in : sweep_results/consolidated_results.csv
+ Hunting for  : S_Queue=5 | S_Hop=3 | S_Egress=1
+ Ratio Bounds : 10.0% - 50.0%
+ At Error     : 3.0%
+=========================================================
+
+★ MATCHING CONFIGURATIONS FOUND! ★
+-----------------------------------------------------------------
+ -> Flow Rate: 0.77 flows/sec | Duration: 120.0s  (Yields Ratio: 14.61%)
+ -> Flow Rate: 0.81 flows/sec | Duration: 120.0s  (Yields Ratio: 29.35%)
+ -> Flow Rate: 0.91 flows/sec | Duration: 120.0s  (Yields Ratio: 13.84%)
+ -> Flow Rate: 0.73 flows/sec | Duration: 180.0s  (Yields Ratio: 12.48%)
+ -> Flow Rate: 0.79 flows/sec | Duration: 180.0s  (Yields Ratio: 29.75%)
+ -> Flow Rate: 0.97 flows/sec | Duration: 180.0s  (Yields Ratio: 10.36%)
+ -> Flow Rate: 0.11 flows/sec | Duration: 360.0s  (Yields Ratio: 45.89%)
+-----------------------------------------------------------------
+

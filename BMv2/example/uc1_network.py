@@ -78,6 +78,7 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--p4', help='P4 source code for INT mode', type=str, required=True)
     parser.add_argument('--file_path', help='Abs file path', type=str, required=True)
+    parser.add_argument('-d', help='duration for running reciever script',type=int,required=True)
     return parser.parse_args()
 
 
@@ -108,7 +109,7 @@ def main():
 
     # 1. Start receiver scripts first so they are listening
     for recv in receivers:
-        recv_cmd = f'python3 {args.file_path}/FAT_INT/BMv2/example/packets/uc1_receive.py --file_path {args.file_path} --receiver {recv} --duration 360'
+        recv_cmd = f'python3 {args.file_path}/FAT_INT/BMv2/example/packets/uc1_receive.py --file_path {args.file_path} --receiver {recv} --duration {args.d}'
         host_node = net.net.get(recv)
         process = Process(target=run_command_on_host, args=(host_node, recv_cmd))
         process.start()

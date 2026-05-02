@@ -121,7 +121,7 @@ def main(file_paths):
         'egress_ts': 'egress_metadata'
     }
 
-    thresholds = [1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
+    thresholds = [2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
     item_data = {k: defaultdict(list) for k in item_mapping.keys()}
     
     node_timestamps = defaultdict(list)

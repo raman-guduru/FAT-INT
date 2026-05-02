@@ -17,7 +17,7 @@ class HadoopTrafficGenerator:
                     parts = line.strip().split()
                     if len(parts) >= 2:
                         val = float(parts[0])
-                        prob = float(parts[1])/100
+                        prob = float(parts[1]) / 100.0
                         self.cdf.append((val, prob))
             # Ensure sorting by probability
             self.cdf.sort(key=lambda x: x[1])
@@ -27,7 +27,7 @@ class HadoopTrafficGenerator:
             exit(1)
 
     def calculate_average(self):
-        """Calculates the average flow size from the CDF for the Poisson arrival rate."""
+        """Calculates the average flow size from the CDF for informational purposes."""
         avg = 0.0
         prev_prob = 0.0
         for val, prob in self.cdf:
@@ -48,22 +48,9 @@ class HadoopTrafficGenerator:
                 return int(interpolated)
         return int(self.cdf[-1][0])
 
-def parse_bandwidth(bw_str):
-    """Converts a bandwidth string like '10G' or '1G' to bits per second."""
-    bw_str = bw_str.upper().strip()
-    if bw_str.endswith('G'):
-        return float(bw_str[:-1]) * 1e9
-    elif bw_str.endswith('M'):
-        return float(bw_str[:-1]) * 1e6
-    elif bw_str.endswith('K'):
-        return float(bw_str[:-1]) * 1e3
-    else:
-        return float(bw_str)
-
 def main():
     parser = argparse.ArgumentParser(description="Hadoop Flow Generator for FAT-INT Topology")
-    parser.add_argument('-l', '--load', type=float, default=0.3, help='Network load (0.0 to 1.0)')
-    parser.add_argument('-b', '--bandwidth', type=str, default='1G', help='Link bandwidth (e.g., 10G, 1G, 100M)')
+    parser.add_argument('-r', '--rate', type=float, default=10.0, help='Average flows per second (Lambda)')
     parser.add_argument('-t', '--time', type=float, default=1.0, help='Duration of trace to generate in seconds')
     parser.add_argument('-d', '--distribution', type=str, default='FbHdp_distribution.txt', help='Path to Hadoop CDF file')
     parser.add_argument('-o', '--output', type=str, default='flows.csv', help='Output CSV file name')
@@ -75,14 +62,13 @@ def main():
     receiver_ips = ["10.0.9.5", "10.0.9.6", "10.0.10.7", "10.0.10.8"] # h5, h6, h7, h8
 
     generator = HadoopTrafficGenerator(args.distribution)
-    bandwidth_bps = parse_bandwidth(args.bandwidth)
     
-    # λ (Lambda) = (Load * Bandwidth) / (Average Flow Size * 8 bits/byte)
-    lam = (args.load * bandwidth_bps) / (generator.avg_size * 8.0)
+    # λ (Lambda) is now taken directly from the user input
+    lam = args.rate
     
     print(f"--- Generating Hadoop Flows for Custom Fat-Tree ---")
-    print(f"Load: {args.load} | Link BW: {args.bandwidth} | Duration: {args.time}s")
-    print(f"Avg Flow Size: {generator.avg_size:.2f} bytes | Arrival Rate (λ): {lam:.2f} flows/sec")
+    print(f"Arrival Rate (λ): {lam:.2f} flows/sec | Duration: {args.time}s")
+    print(f"Avg Flow Size from Distribution: {generator.avg_size:.2f} bytes")
 
     current_time = 0.0
     flow_count = 0
